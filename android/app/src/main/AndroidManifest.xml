@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ru.taurist.taurist">
+    package="com.example.taurist">
    <application
         android:label="taurist"
         android:name="${applicationName}"

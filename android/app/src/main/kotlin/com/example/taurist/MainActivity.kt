@@ -1,4 +1,4 @@
-package ru.taurist.taurist
+package com.example.taurist
 
 import io.flutter.embedding.android.FlutterActivity
 
