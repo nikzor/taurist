@@ -29,6 +29,8 @@ class _SignupPageState extends State<SignupPage> {
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
+      Navigator.of(context)
+          .pushNamedAndRemoveUntil('/profile', (Route<dynamic> route) => false);
     } on FirebaseAuthException catch (e) {
       print(e.toString());
       Utils.showSnackBar('this email is already used');
@@ -49,8 +51,6 @@ class _SignupPageState extends State<SignupPage> {
     //   print(e);
     //   Utils.showSnackBar(e.message);
     // }
-    Navigator.of(context)
-        .pushNamedAndRemoveUntil('/profile', (Route<dynamic> route) => false);
     // Utils.navigatorKey.currentState!.popUntil(ModalRoute.withName("/profile"));
     //Navigator.of(context).popUntil((route) => route.isFirst);
   }
@@ -58,6 +58,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
