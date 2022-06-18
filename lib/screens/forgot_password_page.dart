@@ -43,7 +43,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       Utils.navigatorKey.currentState!.popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
       showSnackbar('Error: Try again!');
-      Utils.navigatorKey.currentState!.popUntil((route) => route.isFirst);
     }
   }
 
@@ -69,7 +68,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 'You will recieve an Email with reset link',
                 softWrap: true,
                 textAlign: TextAlign.start,
-                style: const TextStyle(
+                style: TextStyle(
                     fontSize: 35,
                     fontFamily: 'Inter',
                     color: Color.fromRGBO(44, 83, 72, 1),
@@ -85,8 +84,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 decoration: InputDecoration(
                   hintText: "Email",
                   hintStyle: const TextStyle(
-                      color: const Color.fromRGBO(189, 189, 189, 1),
-                      fontSize: 16),
+                      color: Color.fromRGBO(189, 189, 189, 1), fontSize: 16),
                   border: const OutlineInputBorder(
                       borderSide:
                           BorderSide(color: Color.fromRGBO(44, 83, 72, 1))),
@@ -94,7 +92,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     onPressed: emailController.clear,
                     icon: const Icon(
                       Icons.clear,
-                      color: const Color.fromRGBO(189, 189, 189, 1),
+                      color: Color.fromRGBO(189, 189, 189, 1),
                     ),
                   ),
                 ),
@@ -119,13 +117,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 ),
                 onPressed: resetPassword,
                 child: const Padding(
-                  padding: const EdgeInsets.only(
+                  padding: EdgeInsets.only(
                     top: 10,
                     bottom: 10,
                   ),
-                  child: const Text(
+                  child: Text(
                     'Reset password',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontFamily: 'Inter',
                       fontSize: 16,
                       color: Colors.white,
