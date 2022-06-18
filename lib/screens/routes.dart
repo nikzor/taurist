@@ -10,7 +10,54 @@ class RoutesPage extends StatefulWidget {
 class RoutesPageState extends State<RoutesPage> {
   @override
   Widget build(BuildContext context) {
-    return const ChooseList(["asd", "фыв", "qwe", "йцу"]);
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 250,
+            child: ChooseList(["123", "456", "789"]),
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                RouteCard("Route 1", "Very nice places", Icons.directions_walk),
+                RouteCard("Route 2", "Very nice places", Icons.directions_walk),
+                RouteCard("Route 3", "Very nice places", Icons.directions_walk),
+                RouteCard("Route 4", "Very nice places", Icons.directions_walk),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class RouteCard extends StatelessWidget {
+  const RouteCard(this._title, this._description, this._icon, {Key? key})
+      : super(key: key);
+
+  final String _title;
+  final String _description;
+  final IconData _icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Card(
+        child: InkWell(
+          splashColor: Colors.blue.withAlpha(30),
+          onTap: () => print("next screen"),
+          child: ListTile(
+            leading: Icon(_icon),
+            title: Text(_title),
+            subtitle: Text(_description),
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -74,11 +121,16 @@ class ChooseListState extends State<ChooseList> {
             child: _results.isNotEmpty
                 ? ListView.builder(
                     itemCount: _results.length,
-                    itemBuilder: (context, index) => ChooseListEntry(_results[index]),
+                    itemBuilder: (context, index) => GestureDetector(
+                      onTap: () => print(_results[index]),
+                      child: ChooseListEntry(
+                        _results[index],
+                      ),
+                    ),
                   )
                 : const Text(
                     'No results found',
-                    style: TextStyle(fontSize: 24),
+                    style: TextStyle(fontSize: 16),
                   ),
           ),
         ],
@@ -95,15 +147,19 @@ class ChooseListEntry extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
           child: Text(
             value,
+            style: TextStyle(
+              fontSize: 16,
+            ),
           ),
         ),
         const Divider(
-          height: 10,
+          height: 15,
           thickness: 2,
           color: Colors.black,
         ),

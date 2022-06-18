@@ -19,7 +19,7 @@ void main() async {
       navigatorKey: Utils.navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Colors.white70),
-      initialRoute: '/',
+      initialRoute: '/routes',
       routes: {
         '/': (context) => const MainPage(),
         '/login': (context) => const LoginPage(),
