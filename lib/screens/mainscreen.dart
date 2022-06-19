@@ -55,6 +55,7 @@ class _MainPageState extends State<MainPage> {
                     shadowColor: MaterialStateProperty.all(Colors.transparent),
                   ),
                   onPressed: () {
+                    //Navigator.popUntil(context, ModalRoute.withName('/login'));
                     Navigator.pushNamed(
                       context,
                       '/login',
