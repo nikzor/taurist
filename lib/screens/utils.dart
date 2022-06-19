@@ -9,9 +9,9 @@ class Utils {
     final snackBar = SnackBar(
       content: Text(
         text,
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
       ),
-      backgroundColor: Color.fromRGBO(44, 83, 72, 1),
+      backgroundColor: const Color.fromRGBO(44, 83, 72, 1),
     );
     messengerKey.currentState!
       ..removeCurrentSnackBar()

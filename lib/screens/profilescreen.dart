@@ -11,7 +11,7 @@ class ProfileScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            child: Text('This is main page'),
+            child: const Text('This is profile page'),
           )
         ],
       ),
