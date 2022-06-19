@@ -29,6 +29,6 @@ This page is made for user to create new routes themselves. It contains all the 
 
 ## Related images
 
-Login                  |  Reset passwork                | Routes
+Login                  |  Reset password                | Routes
 :---------------------:|:------------------------------:|:------------------------:
 ![](/pics/Login.png)   |  ![](/pics/ResetPassword.png)  |![](/pics/Routes.png)
