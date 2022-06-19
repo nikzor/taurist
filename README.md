@@ -25,3 +25,10 @@ This page of our application contains more precise information about the route. 
 ### Creational page
 
 This page is made for user to create new routes themselves. It contains all the interface for creation what will be seen afterwards in concrete route page.
+
+
+## Related images
+
+Login                  |  Reset passwork                | Routes
+:---------------------:|:------------------------------:|:------------------------:
+![](/pics/Login.png)   |  ![](/pics/ResetPassword.png)  |![](/pics/Routes.png)
