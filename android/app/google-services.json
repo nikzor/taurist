@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1091313771929",
+    "project_id": "tauristapp-74b3f",
+    "storage_bucket": "tauristapp-74b3f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1091313771929:android:f16337bf412c494ea19f08",
+        "android_client_info": {
+          "package_name": "com.example.taurist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1091313771929-m0jh5mnqpu4hqdn2mgvebtbqc3pe9i30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASpIzeuXE3PMDyMqHCq5yFRZUUUNUg9p8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1091313771929-m0jh5mnqpu4hqdn2mgvebtbqc3pe9i30.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
