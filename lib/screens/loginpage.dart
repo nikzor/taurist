@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:taurist/screens/profilescreen.dart';
+import 'package:taurist/screens/routes.dart';
 import 'package:taurist/screens/utils.dart';
 
 class LoginPage extends StatefulWidget {
@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return const ProfileScreen();
+            return const RoutesPage();
           } else {
             return const SignInWidget();
           }

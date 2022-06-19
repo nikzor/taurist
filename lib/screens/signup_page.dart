@@ -30,7 +30,7 @@ class _SignupPageState extends State<SignupPage> {
         password: passwordController.text.trim(),
       );
       Utils.navigatorKey.currentState!
-          .pushNamedAndRemoveUntil('/profile', (Route<dynamic> route) => false);
+          .pushNamedAndRemoveUntil('/routes', (Route<dynamic> route) => false);
     } on FirebaseAuthException {
       Utils.showSnackBar('this email is already used');
     }

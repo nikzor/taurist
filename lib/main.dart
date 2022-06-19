@@ -4,7 +4,6 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:taurist/screens/forgot_password_page.dart';
 import 'package:taurist/screens/loginpage.dart';
 import 'package:taurist/screens/mainscreen.dart';
-import 'package:taurist/screens/profilescreen.dart';
 import 'package:taurist/screens/routes.dart';
 import 'package:taurist/screens/signup_page.dart';
 import 'package:taurist/screens/utils.dart';
@@ -19,13 +18,12 @@ void main() async {
       navigatorKey: Utils.navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primaryColor: Colors.white70),
-      initialRoute: '/routes',
+      initialRoute: '/',
       routes: {
         '/': (context) => const MainPage(),
         '/login': (context) => const LoginPage(),
         '/signin': (context) => const SignupPage(),
         '/forgot': (context) => const ForgotPasswordPage(),
-        '/profile': (context) => const ProfileScreen(),
         '/routes': (context) => const RoutesPage(),
       },
     ),
