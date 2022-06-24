@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:taurist/screens/utils.dart';
+import 'package:taurist/controllers/authorization_controller.dart';
+import 'package:taurist/utils.dart';
 
-class SignupPage extends StatefulWidget {
-  const SignupPage({Key? key}) : super(key: key);
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
-  State<SignupPage> createState() => _SignupPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignupPageState extends State<SignupPage> {
+class _SignUpPageState extends State<SignUpPage> {
   bool _isVisible = true;
   bool pass = true;
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
   @override
   void dispose() {
     emailController.dispose();
@@ -23,18 +25,18 @@ class _SignupPageState extends State<SignupPage> {
     super.dispose();
   }
 
-  Future singUp() async {
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-      );
-      Utils.navigatorKey.currentState!
-          .pushNamedAndRemoveUntil('/routes', (Route<dynamic> route) => false);
-    } on FirebaseAuthException {
-      Utils.showSnackBar('this email is already used');
-    }
-  }
+  // Future singUp() async {
+  //   try {
+  //     await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  //       email: emailController.text.trim(),
+  //       password: passwordController.text.trim(),
+  //     );
+  //     Utils.navigatorKey.currentState!
+  //         .pushNamedAndRemoveUntil('/routes', (Route<dynamic> route) => false);
+  //   } on FirebaseAuthException {
+  //     Utils.showSnackBar('this email is already used');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -199,7 +201,12 @@ class _SignupPageState extends State<SignupPage> {
                           shadowColor:
                               MaterialStateProperty.all(Colors.transparent),
                         ),
-                        onPressed: singUp,
+                        onPressed: () {
+                          AuthorizationController.instance.signUp(
+                            emailController.text.trim(),
+                            passwordController.text.trim(),
+                          );
+                        },
                         child: const Padding(
                           padding: EdgeInsets.only(
                             top: 10,

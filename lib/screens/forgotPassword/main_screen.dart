@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:taurist/screens/utils.dart';
+import 'package:taurist/controllers/authorization_controller.dart';
+import 'package:taurist/utils.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);
@@ -20,24 +21,24 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     super.dispose();
   }
 
-  void showSnackbar(String text) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(text),
-      ),
-    );
-  }
+  // void showSnackbar(String text) {
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //     SnackBar(
+  //       content: Text(text),
+  //     ),
+  //   );
+  // }
 
-  Future resetPassword() async {
-    try {
-      await FirebaseAuth.instance
-          .sendPasswordResetEmail(email: emailController.text.trim());
-      showSnackbar('Email has been sent');
-      Utils.navigatorKey.currentState!.popUntil((route) => route.isFirst);
-    } on FirebaseAuthException {
-      showSnackbar('Error: Try again!');
-    }
-  }
+  // Future resetPassword() async {
+  //   try {
+  //     await FirebaseAuth.instance
+  //         .sendPasswordResetEmail(email: emailController.text.trim());
+  //     showSnackbar('Email has been sent');
+  //     Utils.navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  //   } on FirebaseAuthException {
+  //     showSnackbar('Error: Try again!');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: const Text('Reset password'),
         leading: const BackButton(
           color: Colors.black,
         ),
@@ -115,7 +115,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                             MaterialStateProperty.all(Colors.transparent),
                         shadowColor: MaterialStateProperty.all(Colors.transparent),
                       ),
-                      onPressed: resetPassword,
+                      onPressed: (){
+                        AuthorizationController.instance.resetPassword(emailController.text.trim());
+                      },
                       child: const Padding(
                         padding: EdgeInsets.only(
                           top: 10,

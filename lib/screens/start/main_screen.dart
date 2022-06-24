@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:taurist/screens/signIn/main_screen.dart';
+import 'package:get/get.dart';
 
-
-class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+class StartPage extends StatefulWidget {
+  const StartPage({Key? key}) : super(key: key);
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  State<StartPage> createState() => _StartPageState();
 }
 
-class _MainPageState extends State<MainPage> {
-  @override
-  void initState() {
-    super.initState();
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-  }
+class _StartPageState extends State<StartPage> {
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   SystemChrome.setPreferredOrientations([
+  //     DeviceOrientation.portraitUp,
+  //     DeviceOrientation.portraitDown,
+  //   ]);
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,10 +58,11 @@ class _MainPageState extends State<MainPage> {
                   ),
                   onPressed: () {
                     //Navigator.popUntil(context, ModalRoute.withName('/login'));
-                    Navigator.pushNamed(
-                      context,
-                      '/login',
-                    );
+                    // Navigator.pushReplacementNamed(
+                    //   context,
+                    //   '/login',
+                    // );
+                    Get.offAll(()=>SignInPage());
                   },
                   child: const Padding(
                     padding: EdgeInsets.only(
