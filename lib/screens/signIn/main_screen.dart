@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:taurist/controllers/authorization_controller.dart';
 import 'package:taurist/screens/mainScreen/main_screen.dart';
-import 'package:taurist/utils.dart';
 
 // class SignInPage extends StatefulWidget {
 //   const SignInPage({Key? key}) : super(key: key);
