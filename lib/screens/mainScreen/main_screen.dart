@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class RoutesPage extends StatefulWidget {
   const RoutesPage({Key? key}) : super(key: key);
@@ -15,6 +16,13 @@ class RoutesPageState extends State<RoutesPage> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          SizedBox(
+            height: Get.height * 0.1,
+          ),
+          ElevatedButton(
+            onPressed: () => Get.toNamed('/profilePage'),
+            child: Text('Profile'),
+          ),
           SizedBox(
             height: 250,
             child: ChooseList(["123", "456", "789"]),

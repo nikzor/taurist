@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:taurist/screens/start/main_screen.dart';
 import 'package:taurist/screens/signIn/main_screen.dart';
 import 'package:taurist/screens/mainScreen/main_screen.dart';
+import 'package:taurist/helpers/error_snackbar.dart';
 
 class AuthorizationController extends GetxController {
   static AuthorizationController instance = Get.find();
@@ -27,32 +28,13 @@ class AuthorizationController extends GetxController {
     }
   }
 
-  void errorSnackbar(String message) {
-    Get.snackbar(
-      "Title",
-      "Message",
-      backgroundColor: const Color.fromRGBO(44, 83, 72, 1),
-      snackPosition: SnackPosition.BOTTOM,
-      titleText: const Text(
-        "An error occurred",
-        style: TextStyle(color: Colors.white),
-      ),
-      messageText: Text(
-        message,
-        style: const TextStyle(
-          color: Colors.white,
-        ),
-      ),
-    );
-  }
-
   void signUp(String email, password) async {
     try {
       await auth.createUserWithEmailAndPassword(
           email: email, password: password);
       _initScreen(auth.currentUser);
     } catch (e) {
-      errorSnackbar(e.toString());
+      ErrorSnackbar.errorSnackbar(e.toString());
     }
   }
 
@@ -61,7 +43,7 @@ class AuthorizationController extends GetxController {
       await auth.signInWithEmailAndPassword(email: email, password: password);
       _initScreen(auth.currentUser);
     } catch (e) {
-      errorSnackbar(e.toString());
+      ErrorSnackbar.errorSnackbar(e.toString());
     }
   }
 
@@ -84,9 +66,9 @@ class AuthorizationController extends GetxController {
           ),
         ),
       );
-      Get.offAll(() => const SignInPage());;
+      Get.offAll(() => const SignInPage());
     } catch (e) {
-      errorSnackbar(e.toString());
+      ErrorSnackbar.errorSnackbar(e.toString());
     }
   }
 }
