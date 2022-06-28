@@ -8,7 +8,7 @@ Widget listCardWidget() {
       padding: const EdgeInsets.all(16.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
+        children: const [
           Flexible(
             fit: FlexFit.tight,
             child: Icon(
@@ -22,7 +22,7 @@ Widget listCardWidget() {
             child: Text(
               "text2",
               style:
-              const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
           ),
         ],

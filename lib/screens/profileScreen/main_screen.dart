@@ -9,7 +9,7 @@ import 'list_card.dart';
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key}) : super(key: key);
   final user = AuthorizationController.instance.auth.currentUser;
-  final storeController = Get.put(ProfileController());
+  final profile = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -31,17 +31,17 @@ class ProfilePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        storeController.getUserName(),
-                        style: TextStyle(color: Colors.black, fontSize: 34),
+                        profile.getUserName(),
+                        style: const TextStyle(color: Colors.black, fontSize: 34),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 10),
+                        padding: const EdgeInsets.only(top: 10),
                         child: Text(
                           user?.email ?? "-",
-                          style: TextStyle(color: Colors.black, fontSize: 18),
+                          style: const TextStyle(color: Colors.black, fontSize: 18),
                         ),
                       ),
-                      Divider(
+                      const Divider(
                         color: Colors.black,
                         indent: 50,
                         endIndent: 50,

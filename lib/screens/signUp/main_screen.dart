@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:taurist/controllers/authorization_controller.dart';
 
@@ -23,19 +22,6 @@ class _SignUpPageState extends State<SignUpPage> {
     passwordController.dispose();
     super.dispose();
   }
-
-  // Future singUp() async {
-  //   try {
-  //     await FirebaseAuth.instance.createUserWithEmailAndPassword(
-  //       email: emailController.text.trim(),
-  //       password: passwordController.text.trim(),
-  //     );
-  //     Utils.navigatorKey.currentState!
-  //         .pushNamedAndRemoveUntil('/routes', (Route<dynamic> route) => false);
-  //   } on FirebaseAuthException {
-  //     Utils.showSnackBar('this email is already used');
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {

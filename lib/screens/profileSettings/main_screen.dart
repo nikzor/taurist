@@ -12,23 +12,26 @@ class ProfileSettings extends StatefulWidget {
 
 class _ProfileSettingsState extends State<ProfileSettings> {
   final user = AuthorizationController.instance.auth.currentUser;
-  final storeController = Get.put(ProfileController());
+  final profile = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Settings",
           style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Color.fromRGBO(44, 83, 72, 1),
+        backgroundColor: const Color.fromRGBO(44, 83, 72, 1),
         centerTitle: true,
-        leading: BackButton(),
+        leading: const BackButton(),
         actions: [
           IconButton(
-            icon: Icon(Icons.exit_to_app, color: Colors.white,),
-            onPressed:()=>ProfileController.instance.logout(),
+            icon: const Icon(
+              Icons.exit_to_app,
+              color: Colors.white,
+            ),
+            onPressed: () => profile.logout(),
           ),
         ],
       ),

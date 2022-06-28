@@ -1,34 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:taurist/controllers/authorization_controller.dart';
-import 'package:taurist/screens/mainScreen/main_screen.dart';
-
-// class SignInPage extends StatefulWidget {
-//   const SignInPage({Key? key}) : super(key: key);
-//
-//   @override
-//   State<SignInPage> createState() => _SignInPageState();
-// }
-//
-// class _SignInPageState extends State<SignInPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Scaffold(
-//       body: SignInWidget();
-//       // StreamBuilder<User?>(
-//       //   stream: FirebaseAuth.instance.authStateChanges(),
-//       //   builder: (context, snapshot) {
-//       //     if (snapshot.hasData) {
-//       //       return const RoutesPage();
-//       //     } else {
-//       //       return const SignInWidget();
-//       //     }
-//       //   },
-//       // ),
-//     );
-//   }
-// }
 
 class SignInPage extends StatefulWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -42,6 +14,7 @@ class _SignInPageState extends State<SignInPage> {
   bool pass = true;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
   // @override
   // void dispose() {
   //   emailController.dispose();
@@ -233,7 +206,7 @@ class _SignInPageState extends State<SignInPage> {
                       shadowColor:
                           MaterialStateProperty.all(Colors.transparent),
                     ),
-                    onPressed: (){
+                    onPressed: () {
                       AuthorizationController.instance.signIn(
                         emailController.text.trim(),
                         passwordController.text.trim(),

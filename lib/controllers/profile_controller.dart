@@ -80,7 +80,6 @@ class ProfileController extends GetxController {
     if (url == null) {
       return 'https://cdn.gifka.com/public/thumbs/large/7/7127.gif';
     } else {
-      print(auth.currentUser?.photoURL);
       return 'https://firebasestorage.googleapis.com/v0/b/tauristapp-74b3f.appspot.com/o/${auth.currentUser?.uid}%2Fprofile.jpg?alt=media';
     }
   }
