@@ -59,16 +59,39 @@ class ProfileController extends GetxController {
       final ref = storage.ref().child('${auth.currentUser?.uid}/profile.jpg');
       ref.putFile(_imageFile);
       await auth.currentUser?.updatePhotoURL(
-        'https://firebasestorage.googleapis.com/v0/b/taurist-f8f8f.appspot.com/o/${auth
-            .currentUser?.uid}/profile.jpg?alt=media',
+        'https://firebasestorage.googleapis.com/v0/b/taurist-f8f8f.appspot.com/o/${auth.currentUser?.uid}/profile.jpg?alt=media',
       );
     } catch (e) {
       ErrorSnackbar.errorSnackbar(e.toString());
     }
   }
+
+  // get firebase user name
+  String getUserName() {
+    if (auth.currentUser?.displayName == null ||
+        auth.currentUser?.displayName == "") {
+      return "Default name";
+    }
+    return auth.currentUser?.displayName ?? 'Default name';
+  }
   // get firebase user profile picture
   String getUserPhoto() {
-    return 'https://firebasestorage.googleapis.com/v0/b/tauristapp-74b3f.appspot.com/o/${auth
-      .currentUser?.uid}%2Fprofile.jpg?alt=media';
+    final url = auth.currentUser?.photoURL;
+    if (url == null) {
+      return 'https://cdn.gifka.com/public/thumbs/large/7/7127.gif';
+    } else {
+      print(auth.currentUser?.photoURL);
+      return 'https://firebasestorage.googleapis.com/v0/b/tauristapp-74b3f.appspot.com/o/${auth.currentUser?.uid}%2Fprofile.jpg?alt=media';
+    }
+  }
+
+  // log out firebase user
+  void logout() async {
+    try {
+      await auth.signOut();
+      Get.offAllNamed('/startPage');
+    } catch (e) {
+      ErrorSnackbar.errorSnackbar(e.toString());
+    }
   }
 }

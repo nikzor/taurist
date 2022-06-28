@@ -30,7 +30,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
             children: [
               IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Get.back();
                 },
                 icon: const Icon(
                   Icons.arrow_back,
@@ -39,7 +39,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
               ),
               IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Get.toNamed('/profileSettings');
                 },
                 icon: const Icon(
                   Icons.settings,

@@ -9,6 +9,7 @@ import 'package:taurist/screens/signIn/main_screen.dart';
 import 'package:taurist/screens/start/main_screen.dart';
 import 'package:taurist/screens/mainScreen/main_screen.dart';
 import 'package:taurist/screens/signUp/main_screen.dart';
+import 'package:taurist/screens/profileSettings/main_screen.dart';
 import 'package:flutter/services.dart';
 
 void main() async {
@@ -36,6 +37,7 @@ void main() async {
             page: () => const ForgotPasswordPage()),
         GetPage(name: '/routes', page: () => const RoutesPage()),
         GetPage(name: '/profilePage', page: () => ProfilePage()),
+        GetPage(name: '/profileSettings', page: () => const ProfileSettings()),
       ],
     ),
   );

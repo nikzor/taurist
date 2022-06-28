@@ -31,7 +31,7 @@ class ProfilePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        user?.displayName ?? 'Default name',
+                        storeController.getUserName(),
                         style: TextStyle(color: Colors.black, fontSize: 34),
                       ),
                       Padding(
