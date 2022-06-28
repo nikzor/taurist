@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:taurist/controllers/authorization_controller.dart';
 import 'package:taurist/controllers/profile_controller.dart';
-import 'package:get/get.dart';
+import 'package:taurist/data/route_model.dart';
 
+import '../../sharedWidgets/model_card.dart';
 import 'app_bar.dart';
-import 'list_card.dart';
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key}) : super(key: key);
@@ -32,31 +33,29 @@ class ProfilePage extends StatelessWidget {
                     children: [
                       Text(
                         storeController.getUserName(),
-                        style: TextStyle(color: Colors.black, fontSize: 34),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Text(
-                          user?.email ?? "-",
-                          style: TextStyle(color: Colors.black, fontSize: 18),
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontSize: 34,
                         ),
                       ),
-                      Divider(
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Text(
+                          user?.email ?? "-",
+                          style: const TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                          ),
+                        ),
+                      ),
+                      const Divider(
                         color: Colors.black,
                         indent: 50,
                         endIndent: 50,
                         thickness: 3,
                         height: 25,
                       ),
-                      listCardWidget(),
-                      listCardWidget(),
-                      listCardWidget(),
-                      listCardWidget(),
-                      listCardWidget(),
-                      listCardWidget(),
-                      listCardWidget(),
-                      listCardWidget(),
-                      listCardWidget(),
+                      listCardWidget(RouteModel("id", "owner", "title", "description", 5.6123, 125, {'ya': 5})),
                     ],
                   ),
                 ],
