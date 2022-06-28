@@ -16,6 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp()
       .then((value) => Get.put(AuthorizationController()));
+
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

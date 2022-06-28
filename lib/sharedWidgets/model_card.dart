@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:taurist/data/route_model.dart';
 
-Widget listCardWidget(RouteModel model) {
+Widget getModelCardWidget(RouteModel model) {
   return Container(
     margin: const EdgeInsets.all(8.0),
     decoration: BoxDecoration(
@@ -44,7 +44,7 @@ Widget listCardWidget(RouteModel model) {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  model.distance.toStringAsFixed(2),
+                  "${model.distance.toStringAsFixed(2)} km",
                   style: const TextStyle(
                     fontSize: 12.0,
                     fontWeight: FontWeight.bold,

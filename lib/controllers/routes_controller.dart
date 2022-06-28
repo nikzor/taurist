@@ -13,7 +13,7 @@ class RoutesController extends GetxController {
   final routesDB = FirebaseFirestore.instance;
 
   // Add or update route
-  void set(RouteModel route) async {
+  void addOrUpdate(RouteModel route) async {
     try {
       await routesDB.collection("routes").doc(route.id).set(route.toJson());
     } catch (e) {
