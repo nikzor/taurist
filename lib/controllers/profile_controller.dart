@@ -57,13 +57,18 @@ class ProfileController extends GetxController {
         _imageFile = File(pickedFile.path);
       }
       final ref = storage.ref().child('${auth.currentUser?.uid}/profile.jpg');
-      final uploadTask = ref.putFile(_imageFile);
+      ref.putFile(_imageFile);
       await auth.currentUser?.updatePhotoURL(
-        'https://firebasestorage.googleapis.com/v0/b/taurist-f8f8f.appspot.com/o/${auth.currentUser?.uid}/profile.jpg?alt=media',
+        'https://firebasestorage.googleapis.com/v0/b/taurist-f8f8f.appspot.com/o/${auth
+            .currentUser?.uid}/profile.jpg?alt=media',
       );
-      print(auth.currentUser);
     } catch (e) {
       ErrorSnackbar.errorSnackbar(e.toString());
     }
+  }
+  // get firebase user profile picture
+  String getUserPhoto() {
+    return 'https://firebasestorage.googleapis.com/v0/b/tauristapp-74b3f.appspot.com/o/${auth
+      .currentUser?.uid}%2Fprofile.jpg?alt=media';
   }
 }
