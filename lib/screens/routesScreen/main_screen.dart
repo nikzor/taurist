@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:taurist/controllers/routes_controller.dart';
 import 'package:taurist/data/route_model.dart';
 import 'package:taurist/sharedWidgets/model_card.dart';
+import 'package:uuid/uuid.dart';
 
 class RoutesPage extends StatefulWidget {
   const RoutesPage({Key? key}) : super(key: key);
@@ -17,33 +18,6 @@ class RoutesPageState extends State<RoutesPage> {
 
   @override
   Widget build(BuildContext context) {
-    RouteModel test = RouteModel(
-      "id",
-      FirebaseAuth.instance.currentUser!.uid,
-      "title",
-      "description",
-      5.6123,
-      125,
-      {
-        'Test1': 5,
-        'Test2': 3,
-      },
-    );
-    RouteModel test2 = RouteModel(
-      "id2",
-      "owner2",
-      "title2",
-      "description2",
-      15.6,
-      1251,
-      {
-        'Test1': 5,
-        'Test2': 3,
-      },
-    );
-    routesController.addOrUpdate(test);
-    routesController.addOrUpdate(test2);
-
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
@@ -57,9 +31,13 @@ class RoutesPageState extends State<RoutesPage> {
                             semanticsLabel: 'Loading...',
                           )
                         ]
-                      : snapshot.data!
-                          .map((e) => getModelCardWidget(e))
-                          .toList();
+                      : snapshot.data!.map((e) {
+                          return GestureDetector(
+                            onTap: () =>
+                                Get.toNamed('/profilePage', arguments: ["123"]),
+                            child: getModelCardWidget(e),
+                          );
+                        }).toList();
                   return SliverList(
                     delegate: SliverChildListDelegate(
                       [

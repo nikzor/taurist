@@ -6,6 +6,7 @@ import 'package:taurist/controllers/profile_controller.dart';
 import 'package:taurist/controllers/routes_controller.dart';
 import 'package:taurist/data/route_model.dart';
 import 'package:taurist/sharedWidgets/model_card.dart';
+import 'package:get/get.dart';
 
 import 'app_bar.dart';
 
@@ -18,6 +19,9 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => print("123"),
+      ),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -32,13 +36,16 @@ class ProfilePage extends StatelessWidget {
                 builder: (context, AsyncSnapshot<List<RouteModel>> snapshot) {
                   List<Widget> widgets = !snapshot.hasData
                       ? [
-                    const CircularProgressIndicator(
-                      semanticsLabel: 'Loading...',
-                    )
-                  ]
-                      : snapshot.data!
-                      .map((e) => getModelCardWidget(e))
-                      .toList();
+                          const CircularProgressIndicator(
+                            semanticsLabel: 'Loading...',
+                          )
+                        ]
+                      : snapshot.data!.map((e) {
+                          return GestureDetector(
+                            onTap: () => Get.toNamed('/profilePage'),
+                            child: getModelCardWidget(e),
+                          );
+                        }).toList();
                   return SliverList(
                     delegate: SliverChildListDelegate(
                       [
