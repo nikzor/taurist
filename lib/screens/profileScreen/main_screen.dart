@@ -5,8 +5,8 @@ import 'package:taurist/controllers/authorization_controller.dart';
 import 'package:taurist/controllers/profile_controller.dart';
 import 'package:taurist/controllers/routes_controller.dart';
 import 'package:taurist/data/route_model.dart';
+import 'package:taurist/routes.dart';
 import 'package:taurist/sharedWidgets/model_card.dart';
-import 'package:get/get.dart';
 
 import 'app_bar.dart';
 
@@ -42,7 +42,8 @@ class ProfilePage extends StatelessWidget {
                         ]
                       : snapshot.data!.map((e) {
                           return GestureDetector(
-                            onTap: () => Get.toNamed('/profilePage'),
+                            onTap: () =>
+                                Get.toNamed(Routes.routeDescPage, arguments: [e.id]),
                             child: getModelCardWidget(e),
                           );
                         }).toList();

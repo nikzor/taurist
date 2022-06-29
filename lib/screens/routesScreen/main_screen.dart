@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taurist/controllers/routes_controller.dart';
 import 'package:taurist/data/route_model.dart';
+import 'package:taurist/routes.dart';
 import 'package:taurist/sharedWidgets/model_card.dart';
 import 'package:uuid/uuid.dart';
 
@@ -34,7 +35,7 @@ class RoutesPageState extends State<RoutesPage> {
                       : snapshot.data!.map((e) {
                           return GestureDetector(
                             onTap: () =>
-                                Get.toNamed('/profilePage', arguments: ["123"]),
+                                Get.toNamed(Routes.routeDescPage, arguments: [e.id]),
                             child: getModelCardWidget(e),
                           );
                         }).toList();
@@ -45,7 +46,7 @@ class RoutesPageState extends State<RoutesPage> {
                           height: Get.height * 0.1,
                         ),
                         ElevatedButton(
-                          onPressed: () => Get.toNamed('/profilePage'),
+                          onPressed: () => Get.toNamed(Routes.profilePage),
                           child: Text('Profile'),
                         ),
                         const SizedBox(
