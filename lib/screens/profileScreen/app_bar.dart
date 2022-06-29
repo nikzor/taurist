@@ -10,7 +10,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
   final String userName =
       AuthorizationController.instance.auth.currentUser?.displayName ??
           "User name not defined";
-  final storeController = Get.put(ProfileController());
+  final profile = Get.put(ProfileController());
 
   MySliverAppBar({required this.expandedHeight});
 
@@ -76,7 +76,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                     height: expandedHeight,
                     width: MediaQuery.of(context).size.width / 2,
                     child: CircularProfileAvatar(
-                      ProfileController.instance.getUserPhoto(),
+                      profile.getUserPhoto(),
                       radius: 100,
                       backgroundColor: Colors.transparent,
                       borderWidth: 4,

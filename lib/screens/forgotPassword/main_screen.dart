@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:taurist/controllers/authorization_controller.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
@@ -19,25 +18,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     emailController.dispose();
     super.dispose();
   }
-
-  // void showSnackbar(String text) {
-  //   ScaffoldMessenger.of(context).showSnackBar(
-  //     SnackBar(
-  //       content: Text(text),
-  //     ),
-  //   );
-  // }
-
-  // Future resetPassword() async {
-  //   try {
-  //     await FirebaseAuth.instance
-  //         .sendPasswordResetEmail(email: emailController.text.trim());
-  //     showSnackbar('Email has been sent');
-  //     Utils.navigatorKey.currentState!.popUntil((route) => route.isFirst);
-  //   } on FirebaseAuthException {
-  //     showSnackbar('Error: Try again!');
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +58,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     decoration: InputDecoration(
                       hintText: "Email",
                       hintStyle: const TextStyle(
-                          color: Color.fromRGBO(189, 189, 189, 1), fontSize: 16),
+                          color: Color.fromRGBO(189, 189, 189, 1),
+                          fontSize: 16),
                       border: const OutlineInputBorder(
                           borderSide:
                               BorderSide(color: Color.fromRGBO(44, 83, 72, 1))),
@@ -104,18 +85,22 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                     ),
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                         ),
-                        minimumSize: MaterialStateProperty.all(const Size(130, 30)),
+                        minimumSize:
+                            MaterialStateProperty.all(const Size(130, 30)),
                         backgroundColor:
                             MaterialStateProperty.all(Colors.transparent),
-                        shadowColor: MaterialStateProperty.all(Colors.transparent),
+                        shadowColor:
+                            MaterialStateProperty.all(Colors.transparent),
                       ),
-                      onPressed: (){
-                        AuthorizationController.instance.resetPassword(emailController.text.trim());
+                      onPressed: () {
+                        AuthorizationController.instance
+                            .resetPassword(emailController.text.trim());
                       },
                       child: const Padding(
                         padding: EdgeInsets.only(

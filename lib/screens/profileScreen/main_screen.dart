@@ -13,7 +13,7 @@ import 'app_bar.dart';
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key}) : super(key: key);
   final user = AuthorizationController.instance.auth.currentUser;
-  final storeController = Get.put(ProfileController());
+  final profile = Get.put(ProfileController());
   final routesController = Get.put(RoutesController());
 
   @override
@@ -57,7 +57,7 @@ class ProfilePage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              storeController.getUserName(),
+                              profile.getUserName(),
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 34,

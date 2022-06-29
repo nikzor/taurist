@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:taurist/screens/signIn/main_screen.dart';
 import 'package:get/get.dart';
 
@@ -11,15 +10,6 @@ class StartPage extends StatefulWidget {
 }
 
 class _StartPageState extends State<StartPage> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   SystemChrome.setPreferredOrientations([
-  //     DeviceOrientation.portraitUp,
-  //     DeviceOrientation.portraitDown,
-  //   ]);
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,12 +47,7 @@ class _StartPageState extends State<StartPage> {
                     shadowColor: MaterialStateProperty.all(Colors.transparent),
                   ),
                   onPressed: () {
-                    //Navigator.popUntil(context, ModalRoute.withName('/login'));
-                    // Navigator.pushReplacementNamed(
-                    //   context,
-                    //   '/login',
-                    // );
-                    Get.offAll(()=>SignInPage());
+                    Get.offAll(() => SignInPage());
                   },
                   child: const Padding(
                     padding: EdgeInsets.only(
