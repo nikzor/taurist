@@ -23,3 +23,10 @@ jobs:
       
       - run: flutter pub get
       - run: flutter build ios --release --no-codesign
+      
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Runner.app
+          path: build/ios/iphoneos/Runner.app
+          if-no-files-found: error
