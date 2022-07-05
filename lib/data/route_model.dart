@@ -9,6 +9,8 @@ class RouteModel {
   final String title;
   final String description;
 
+  final String xmlFileId;
+
   // Distance of route in kilometers
   final double distance;
 
@@ -18,8 +20,16 @@ class RouteModel {
   // Mapping: userId -> rate
   final Map<String, int> rates;
 
-  RouteModel(this.id, this.ownerId, this.title, this.description, this.distance,
-      this.duration, this.rates);
+  RouteModel(
+    this.id,
+    this.ownerId,
+    this.title,
+    this.description,
+    this.distance,
+    this.duration,
+    this.rates,
+    this.xmlFileId,
+  );
 
   factory RouteModel.fromJson(Map<String, dynamic> json) =>
       _$RouteModelFromJson(json);

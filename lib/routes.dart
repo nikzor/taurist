@@ -5,6 +5,7 @@ class Routes {
   static String get forgotPasswordPage => '/forgotPasswordPage';
   static String get routesPage => '/routesPage';
   static String get routeDescPage => '/routeDescPage';
+  static String get newRouteScreen => '/newRouteScreen';
   static String get profilePage => '/profilePage';
   static String get profileSettingsPage => '/profileSettingsPage';
 }

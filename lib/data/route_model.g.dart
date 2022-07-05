@@ -14,6 +14,7 @@ RouteModel _$RouteModelFromJson(Map<String, dynamic> json) => RouteModel(
       (json['distance'] as num).toDouble(),
       json['duration'] as int,
       Map<String, int>.from(json['rates'] as Map),
+      json['xmlFileId'] as String,
     );
 
 Map<String, dynamic> _$RouteModelToJson(RouteModel instance) =>
@@ -22,6 +23,7 @@ Map<String, dynamic> _$RouteModelToJson(RouteModel instance) =>
       'ownerId': instance.ownerId,
       'title': instance.title,
       'description': instance.description,
+      'xmlFileId': instance.xmlFileId,
       'distance': instance.distance,
       'duration': instance.duration,
       'rates': instance.rates,

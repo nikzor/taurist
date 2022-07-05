@@ -47,6 +47,10 @@ dependencies:
   cloud_firestore: ^3.1.18
   json_annotation: 4.5.0
   uuid: ^3.0.6
+  flutter_map: ^1.1.1
+  gpx: ^2.1.1
+  file_picker: ^3.0.4
+
 
 dev_dependencies:
   flutter_test:

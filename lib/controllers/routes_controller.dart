@@ -1,16 +1,47 @@
+import 'dart:io';
+
+import 'package:uuid/uuid.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:taurist/data/route_model.dart';
 import 'package:taurist/helpers/error_snackbar.dart';
-import 'dart:io';
-import 'package:image_picker/image_picker.dart';
 import 'package:taurist/helpers/typedef.dart';
 
 class RoutesController extends GetxController {
   static RoutesController instance = Get.find();
-
+  static const uuid = Uuid();
   final routesDB = FirebaseFirestore.instance;
+  final xmlStorage = FirebaseStorage.instance;
+
+  Future<RouteModel?> get(String id) async {
+    try {
+      var snap = await routesDB.collection("routes").doc(id).get();
+      if (snap.data() == null) return null;
+      return RouteModel.fromJson(snap.data()!);
+    } catch (e) {
+      ErrorSnackbar.errorSnackbar(e.toString());
+      return null;
+    }
+  }
+
+  Future<String?> addXml(File? uploadFile) async {
+    String? xmlFileId;
+
+    try {
+      xmlFileId = uuid.v4();
+      await xmlStorage.ref().child("gpx_files/$xmlFileId").putFile(uploadFile!);
+    } catch (e) {
+      xmlFileId = null;
+      ErrorSnackbar.errorSnackbar(e.toString());
+    }
+    return xmlFileId;
+  }
+
+  Future<String> getGpxMap (String mapId) async {
+    var data = await xmlStorage.ref().child("gpx_files/$mapId").getData();
+    return String.fromCharCodes(data!);
+  }
 
   // Add or update route
   void addOrUpdate(RouteModel route) async {

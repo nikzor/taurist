@@ -5,7 +5,9 @@ import 'package:get/get.dart';
 import 'package:taurist/controllers/authorization_controller.dart';
 import 'package:taurist/routes.dart';
 import 'package:taurist/screens/forgotPassword/main_screen.dart';
+import 'package:taurist/screens/newRouteScreen/main_screen.dart';
 import 'package:taurist/screens/profileScreen/main_screen.dart';
+import 'package:taurist/screens/routesDescScreen/main_screen.dart';
 import 'package:taurist/screens/routesScreen/main_screen.dart';
 import 'package:taurist/screens/signIn/main_screen.dart';
 import 'package:taurist/screens/start/main_screen.dart';
@@ -38,9 +40,12 @@ void main() async {
             name: Routes.forgotPasswordPage,
             page: () => const ForgotPasswordPage()),
         GetPage(name: Routes.routesPage, page: () => const RoutesPage()),
-        GetPage(name: Routes.routeDescPage, page: () => const RoutesPage()),
+        GetPage(name: Routes.routeDescPage, page: () => const RoutesDescPage()),
+        GetPage(name: Routes.newRouteScreen, page: () => const NewRouteScreen()),
         GetPage(name: Routes.profilePage, page: () => ProfilePage()),
-        GetPage(name: Routes.profileSettingsPage, page: () => const ProfileSettings()),
+        GetPage(
+            name: Routes.profileSettingsPage,
+            page: () => const ProfileSettings()),
       ],
     ),
   );
