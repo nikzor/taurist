@@ -47,7 +47,7 @@ class _StartPageState extends State<StartPage> {
                     shadowColor: MaterialStateProperty.all(Colors.transparent),
                   ),
                   onPressed: () {
-                    Get.offAll(() => SignInPage());
+                    Get.offAll(() => const SignInPage());
                   },
                   child: const Padding(
                     padding: EdgeInsets.only(
