@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:taurist/helpers/error_snackbar.dart';
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:taurist/routes.dart';
 
 class ProfileController extends GetxController {
   static ProfileController instance = Get.find();
@@ -120,7 +121,7 @@ class ProfileController extends GetxController {
   void logout() async {
     try {
       await auth.signOut();
-      Get.offAllNamed('/startPage');
+      Get.offAllNamed(Routes.startPage);
     } catch (e) {
       ErrorSnackbar.errorSnackbar(e.toString());
     }
