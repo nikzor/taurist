@@ -1,4 +1,3 @@
-import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
 import 'package:taurist/controllers/authorization_controller.dart';
 import 'package:taurist/controllers/profile_controller.dart';
@@ -74,11 +73,26 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
                   child: SizedBox(
                     height: expandedHeight,
                     width: MediaQuery.of(context).size.width / 2,
-                    child: CircularProfileAvatar(
-                      profile.getUserPhoto(),
-                      radius: 100,
-                      backgroundColor: Colors.transparent,
-                      borderWidth: 4,
+                    child: Obx(
+                      () => Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              width: 4,
+                              color: Theme.of(context).scaffoldBackgroundColor),
+                          boxShadow: [
+                            BoxShadow(
+                                spreadRadius: 2,
+                                blurRadius: 10,
+                                color: Colors.black.withOpacity(0.1),
+                                offset: const Offset(0, 10))
+                          ],
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(profile.userPhoto.value),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),

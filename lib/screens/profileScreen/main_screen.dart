@@ -6,8 +6,14 @@ import 'package:get/get.dart';
 import 'app_bar.dart';
 import 'list_card.dart';
 
-class ProfilePage extends StatelessWidget {
-  ProfilePage({Key? key}) : super(key: key);
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({Key? key}) : super(key: key);
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
   final user = AuthorizationController.instance.auth.currentUser;
   final profile = Get.put(ProfileController());
 
@@ -30,15 +36,21 @@ class ProfilePage extends StatelessWidget {
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        profile.getUserName(),
-                        style: const TextStyle(color: Colors.black, fontSize: 34),
+                      Obx(
+                        () => Text(
+                          profile.userName.value ?? 'Default name',
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 34),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
-                        child: Text(
-                          user?.email ?? "-",
-                          style: const TextStyle(color: Colors.black, fontSize: 18),
+                        child: Obx(
+                          () => Text(
+                            profile.userEmail.value ?? 'Default email',
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 18),
+                          ),
                         ),
                       ),
                       const Divider(

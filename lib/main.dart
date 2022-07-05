@@ -36,7 +36,7 @@ void main() async {
             name: '/forgotPasswordPage',
             page: () => const ForgotPasswordPage()),
         GetPage(name: '/routes', page: () => const RoutesPage()),
-        GetPage(name: '/profilePage', page: () => ProfilePage()),
+        GetPage(name: '/profilePage', page: () => const ProfilePage()),
         GetPage(name: '/profileSettings', page: () => const ProfileSettings()),
       ],
     ),
