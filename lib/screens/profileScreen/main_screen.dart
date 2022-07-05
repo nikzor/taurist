@@ -21,12 +21,27 @@ class _ProfilePageState extends State<ProfilePage> {
   final user = AuthorizationController.instance.auth.currentUser;
   final profile = Get.put(ProfileController());
   final routesController = Get.put(RoutesController());
+  bool flag = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () => print("123"),
+        backgroundColor: Color.fromRGBO(44, 83, 72, 1),
+        child: flag
+            ? Icon(
+                Icons.nights_stay,
+                color: Colors.white,
+              )
+            : Icon(Icons.sunny),
+        onPressed: () {
+          Get.isDarkMode
+              ? Get.changeTheme(ThemeData.light())
+              : Get.changeTheme(ThemeData.dark());
+          setState(() {
+            flag = !flag;
+          });
+        },
       ),
       body: SafeArea(
         child: CustomScrollView(
@@ -66,7 +81,6 @@ class _ProfilePageState extends State<ProfilePage> {
                               () => Text(
                                 profile.userName.value ?? 'Default name',
                                 style: const TextStyle(
-                                  color: Colors.black,
                                   fontSize: 34,
                                 ),
                               ),
@@ -77,14 +91,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                 () => Text(
                                   profile.userEmail.value ?? 'Default email',
                                   style: const TextStyle(
-                                    color: Colors.black,
                                     fontSize: 18,
                                   ),
                                 ),
                               ),
                             ),
                             const Divider(
-                              color: Colors.black,
                               indent: 50,
                               endIndent: 50,
                               thickness: 3,

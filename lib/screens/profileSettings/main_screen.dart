@@ -208,11 +208,12 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      OutlinedButton(
-                        style: OutlinedButton.styleFrom(
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(horizontal: 50),
+                          primary: const Color.fromRGBO(44, 83, 72, 1),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(20.0),
                           ),
                         ),
                         onPressed: () => cancel(),
@@ -221,7 +222,7 @@ class _ProfileSettingsState extends State<ProfileSettings> {
                           style: TextStyle(
                               fontSize: 14,
                               letterSpacing: 2.2,
-                              color: Colors.black),
+                              color: Colors.white),
                         ),
                       ),
                       ElevatedButton(
@@ -257,6 +258,12 @@ class _ProfileSettingsState extends State<ProfileSettings> {
         controller: controller,
         obscureText: isPassword ? showPassword : false,
         decoration: InputDecoration(
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Color(0xFF49454F)),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Color(0xFF49454F)),
+            ),
           suffixIcon: isPassword
               ? IconButton(
                   onPressed: () {
@@ -274,10 +281,10 @@ class _ProfileSettingsState extends State<ProfileSettings> {
               : null,
           contentPadding: const EdgeInsets.only(bottom: 3),
           labelText: labelText,
-          labelStyle: const TextStyle(fontSize: 18, color: Colors.black),
+          labelStyle: const TextStyle(fontSize: 18, color: Color(0xFF49454F)),
           floatingLabelBehavior: FloatingLabelBehavior.always,
           hintText: isPassword ? '******' : placeHolder,
-          hintStyle: const TextStyle(fontSize: 16, color: Colors.black54),
+          hintStyle: const TextStyle(fontSize: 16,),
         ),
       ),
     );

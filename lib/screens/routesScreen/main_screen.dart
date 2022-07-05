@@ -19,16 +19,19 @@ class RoutesPageState extends State<RoutesPage> {
   final profile = Get.put(ProfileController());
   final CollectionReference routesDB =
   FirebaseFirestore.instance.collection('routes');
-
+  bool flag = false;
   @override
   Widget build(BuildContext context) {
+    setState((){
+      flag = Get.isDarkMode;
+    });
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Taurist',
           style: TextStyle(
               fontFamily: 'Inter',
-              color: Color.fromRGBO(44, 83, 72, 1),
+              color: flag ? Colors.white : Color.fromRGBO(44, 83, 72, 1),
               fontSize: 45,
               fontWeight: FontWeight.w800),
         ),
@@ -67,12 +70,12 @@ class RoutesPageState extends State<RoutesPage> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: const [
+                children: [
                   Text(
                     "Actual routes",
                     style: TextStyle(
                         fontFamily: 'Inter',
-                        color: Color.fromRGBO(44, 83, 72, 1),
+                        color: flag ? Colors.white : Color.fromRGBO(44, 83, 72, 1),
                         fontSize: 25,
                         fontWeight: FontWeight.w800),
                   ),
@@ -87,11 +90,11 @@ class RoutesPageState extends State<RoutesPage> {
                   TextButton(
                     onPressed: () => Get.toNamed(Routes.newRouteScreen),
                     child: Row(
-                      children: const [
+                      children: [
                         Text("Add new route",
                             style: TextStyle(
                                 fontFamily: 'Inter',
-                                color: Color.fromRGBO(44, 83, 72, 1),
+                                color: flag ? Colors.white : Color.fromRGBO(44, 83, 72, 1),
                                 fontSize: 12,
                                 fontWeight: FontWeight.w800)),
                         SizedBox(
@@ -99,7 +102,7 @@ class RoutesPageState extends State<RoutesPage> {
                         ),
                         Icon(
                           Icons.add,
-                          color: Color.fromRGBO(44, 83, 72, 1),
+                          color: flag ? Colors.white : Color.fromRGBO(44, 83, 72, 1),
                         )
                       ],
                     ),
