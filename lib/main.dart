@@ -42,7 +42,7 @@ void main() async {
         GetPage(name: Routes.routesPage, page: () => const RoutesPage()),
         GetPage(name: Routes.routeDescPage, page: () => const RoutesDescPage()),
         GetPage(name: Routes.newRouteScreen, page: () => const NewRouteScreen()),
-        GetPage(name: Routes.profilePage, page: () => ProfilePage()),
+        GetPage(name: Routes.profilePage, page: () => const ProfilePage()),
         GetPage(
             name: Routes.profileSettingsPage,
             page: () => const ProfileSettings()),

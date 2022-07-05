@@ -16,28 +16,6 @@ class _SignInPageState extends State<SignInPage> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  // @override
-  // void dispose() {
-  //   emailController.dispose();
-  //   passwordController.dispose();
-  //   super.dispose();
-  // }
-
-  // Future signIn() async {
-  //   try {
-  //     await FirebaseAuth.instance.signInWithEmailAndPassword(
-  //       email: emailController.text.trim(),
-  //       password: passwordController.text.trim(),
-  //     );
-  //   } on FirebaseAuthException catch (e) {
-  //     if (e.code == 'user-not-found') {
-  //       Utils.showSnackBar('No user found for that email.');
-  //     } else if (e.code == 'wrong-password') {
-  //       Utils.showSnackBar('Wrong password provided.');
-  //     }
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

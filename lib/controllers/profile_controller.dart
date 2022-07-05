@@ -15,6 +15,14 @@ class ProfileController extends GetxController {
   late File _imageFile;
   final picker = ImagePicker();
   final storage = FirebaseStorage.instance;
+  var userName =
+      FirebaseAuth.instance.currentUser?.displayName.obs ?? "Default name".obs;
+  var userEmail =
+      FirebaseAuth.instance.currentUser?.email.obs ?? "Default email".obs;
+  var userPhoto = FirebaseAuth.instance.currentUser?.photoURL == null
+      ? 'https://cdn.gifka.com/public/thumbs/large/7/7127.gif'.obs
+      : 'https://firebasestorage.googleapis.com/v0/b/tauristapp-74b3f.appspot.com/o/${FirebaseAuth.instance.currentUser?.uid}%2Fprofile.jpg?alt=media'
+          .obs;
 
   @override
   void onReady() {
@@ -27,6 +35,7 @@ class ProfileController extends GetxController {
   void changeUserName(String name) async {
     try {
       await auth.currentUser?.updateDisplayName(name);
+      userName.value = name;
     } catch (e) {
       ErrorSnackbar.errorSnackbar(e.toString());
     }
@@ -36,6 +45,7 @@ class ProfileController extends GetxController {
   void changeUserEmail(String email) async {
     try {
       await auth.currentUser?.updateEmail(email);
+      userEmail.value = email;
     } catch (e) {
       ErrorSnackbar.errorSnackbar(e.toString());
     }
@@ -52,6 +62,7 @@ class ProfileController extends GetxController {
 
   // update firebase user profile picture
   void updateProfilePicture() async {
+    late String imageURL;
     try {
       final pickedFile = await picker.pickImage(source: ImageSource.gallery);
       if (pickedFile != null) {
@@ -59,9 +70,11 @@ class ProfileController extends GetxController {
       }
       final ref = storage.ref().child('${auth.currentUser?.uid}/profile.jpg');
       ref.putFile(_imageFile);
-      await auth.currentUser?.updatePhotoURL(
-        'https://firebasestorage.googleapis.com/v0/b/taurist-f8f8f.appspot.com/o/${auth.currentUser?.uid}/profile.jpg?alt=media',
-      );
+      await ref.getDownloadURL().then((value) {
+        imageURL = value;
+      });
+      await auth.currentUser?.updatePhotoURL(imageURL);
+      userPhoto.value = imageURL;
     } catch (e) {
       ErrorSnackbar.errorSnackbar(e.toString());
     }
@@ -75,13 +88,32 @@ class ProfileController extends GetxController {
     }
     return auth.currentUser?.displayName ?? 'Default name';
   }
+
   // get firebase user profile picture
-  String getUserPhoto() {
+  void getUserPhoto() {
     final url = auth.currentUser?.photoURL;
     if (url == null) {
-      return 'https://cdn.gifka.com/public/thumbs/large/7/7127.gif';
+      userPhoto.value = 'https://cdn.gifka.com/public/thumbs/large/7/7127.gif';
     } else {
-      return 'https://firebasestorage.googleapis.com/v0/b/tauristapp-74b3f.appspot.com/o/${auth.currentUser?.uid}%2Fprofile.jpg?alt=media';
+      userPhoto.value =
+          'https://firebasestorage.googleapis.com/v0/b/tauristapp-74b3f.appspot.com/o/${auth.currentUser?.uid}%2Fprofile.jpg?alt=media';
+    }
+  }
+
+  // update user info
+  void updateUserInfo(String name, String email, String password) async {
+    try {
+      if (name != "") {
+        changeUserName(name);
+      }
+      if (email != "") {
+        changeUserEmail(email);
+      }
+      if (password != "") {
+        changeUserPassword(password);
+      }
+    } catch (e) {
+      ErrorSnackbar.errorSnackbar(e.toString());
     }
   }
 
