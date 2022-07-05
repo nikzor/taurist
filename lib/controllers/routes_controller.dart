@@ -53,16 +53,8 @@ class RoutesController extends GetxController {
     }
   }
 
-  Future<List<RouteModel>> list([Predicate<RouteModel>? predicate]) async {
-    List<RouteModel> result = [];
-    var collection = await routesDB.collection("routes").get();
-    for (var snap in collection.docs) {
-      RouteModel model = RouteModel.fromJson(snap.data());
-      if (predicate == null || predicate(model)) {
-        result.add(model);
-      }
-    }
-    return result;
+  Stream<QuerySnapshot<Map<String, dynamic>>> list([Predicate<RouteModel>? predicate]) {
+    return routesDB.collection("routes").snapshots();
   }
 
   // Remove route by it's instance

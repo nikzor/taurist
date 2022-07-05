@@ -1,8 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taurist/controllers/profile_controller.dart';
 import 'package:taurist/controllers/routes_controller.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:taurist/data/route_model.dart';
 import 'package:taurist/routes.dart';
 import 'package:taurist/sharedWidgets/model_card.dart';
@@ -18,11 +18,12 @@ class RoutesPageState extends State<RoutesPage> {
   final routesController = Get.put(RoutesController());
   final profile = Get.put(ProfileController());
   final CollectionReference routesDB =
-  FirebaseFirestore.instance.collection('routes');
+      FirebaseFirestore.instance.collection('routes');
   bool flag = false;
+
   @override
   Widget build(BuildContext context) {
-    setState((){
+    setState(() {
       flag = Get.isDarkMode;
     });
     return Scaffold(
@@ -48,12 +49,11 @@ class RoutesPageState extends State<RoutesPage> {
                 shape: const CircleBorder(),
               ),
               child: Obx(
-                    () =>
-                    CircleAvatar(
-                      backgroundColor: Colors.black12,
-                      backgroundImage: NetworkImage(profile.userPhoto.value),
-                      radius: 25,
-                    ),
+                () => CircleAvatar(
+                  backgroundColor: Colors.black12,
+                  backgroundImage: NetworkImage(profile.userPhoto.value),
+                  radius: 25,
+                ),
               ),
             ),
           ),
@@ -75,7 +75,8 @@ class RoutesPageState extends State<RoutesPage> {
                     "Actual routes",
                     style: TextStyle(
                         fontFamily: 'Inter',
-                        color: flag ? Colors.white : Color.fromRGBO(44, 83, 72, 1),
+                        color:
+                            flag ? Colors.white : Color.fromRGBO(44, 83, 72, 1),
                         fontSize: 25,
                         fontWeight: FontWeight.w800),
                   ),
@@ -94,7 +95,9 @@ class RoutesPageState extends State<RoutesPage> {
                         Text("Add new route",
                             style: TextStyle(
                                 fontFamily: 'Inter',
-                                color: flag ? Colors.white : Color.fromRGBO(44, 83, 72, 1),
+                                color: flag
+                                    ? Colors.white
+                                    : Color.fromRGBO(44, 83, 72, 1),
                                 fontSize: 12,
                                 fontWeight: FontWeight.w800)),
                         SizedBox(
@@ -102,7 +105,9 @@ class RoutesPageState extends State<RoutesPage> {
                         ),
                         Icon(
                           Icons.add,
-                          color: flag ? Colors.white : Color.fromRGBO(44, 83, 72, 1),
+                          color: flag
+                              ? Colors.white
+                              : Color.fromRGBO(44, 83, 72, 1),
                         )
                       ],
                     ),
@@ -117,81 +122,37 @@ class RoutesPageState extends State<RoutesPage> {
                 width: double.infinity,
                 color: Colors.black,
               ),
-              // StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-              //     stream: FirebaseFirestore.instance
-              //         .collection('routes')
-              //         .snapshots(),
-              //     builder: (context, snapshot) {
-              //       if (!snapshot.hasData) {
-              //         List<Widget> widgets = [
-              //           const Center(child: CircularProgressIndicator(),),
-              //         ];
-              //       } else{
-              //         List<Widget> widgets = ;
-              //       }
-              //     }),
               Expanded(
-                child: Container(
-                  height: double.infinity,
-                  width: double.infinity,
-                  child: (SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Column(
-                      children: [],
-                    ),
-                  )),
-                ),
+                child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                    stream: routesController.list(),
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        // return Text("123");
+                        return ListView.builder(
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (context, index) {
+                              DocumentSnapshot<Map<String, dynamic>> doc =
+                                  snapshot.data!.docs[index];
+                              return GestureDetector(
+                                onTap: () => Get.toNamed(Routes.routeDescPage,
+                                    arguments: [doc.id]),
+                                child: getModelCardWidget(
+                                  RouteModel.fromJson(
+                                    doc.data()!,
+                                  ),
+                                ),
+                              );
+                            });
+                      }
+                    }),
               ),
             ],
           ),
-        )
-        /* CustomScrollView(
-          slivers: [
-            FutureBuilder(
-              future: routesController.list(),
-              builder: (context, AsyncSnapshot<List<RouteModel>> snapshot) {
-                List<Widget> widgets = !snapshot.hasData
-                    ? [
-                        const CircularProgressIndicator(
-                          semanticsLabel: 'Loading...',
-                        )
-                      ]
-                    : snapshot.data!.map((e) {
-                        return GestureDetector(
-                          onTap: () => Get.toNamed(Routes.routeDescPage,
-                              arguments: [e.id]),
-                          child: getModelCardWidget(e),
-                        );
-                      }).toList();
-                return SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      SizedBox(
-                        height: Get.height * 0.1,
-                      ),
-                      */ /*ElevatedButton(
-                        onPressed: () => Get.toNamed(Routes.profilePage),
-                        child: Text('Profile'),
-                      ),*/ /*
-                      ElevatedButton(
-                        onPressed: () => Get.toNamed(Routes.newRouteScreen),
-                        child: Text('Create new route'),
-                      ),
-                      const SizedBox(
-                        height: 120,
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: widgets,
-                      ),
-                    ],
-                  ),
-                );
-              },
-            ),
-          ],
-        )*/
-        ,
+        ),
       ),
     );
   }

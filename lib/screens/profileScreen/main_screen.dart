@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taurist/controllers/authorization_controller.dart';
@@ -50,65 +50,99 @@ class _ProfilePageState extends State<ProfilePage> {
               pinned: true,
               delegate: MySliverAppBar(expandedHeight: 200.0),
             ),
-            FutureBuilder(
-                future: routesController.list(
-                  (m) => m.ownerId == FirebaseAuth.instance.currentUser!.uid,
-                ),
-                builder: (context, AsyncSnapshot<List<RouteModel>> snapshot) {
-                  List<Widget> widgets = !snapshot.hasData
-                      ? [
-                          const CircularProgressIndicator(
-                            semanticsLabel: 'Loading...',
-                          )
-                        ]
-                      : snapshot.data!.map((e) {
-                          return GestureDetector(
-                            onTap: () => Get.toNamed(Routes.routeDescPage,
-                                arguments: [e.id]),
-                            child: getModelCardWidget(e),
-                          );
-                        }).toList();
-                  return SliverList(
-                    delegate: SliverChildListDelegate(
-                      [
-                        const SizedBox(
-                          height: 120,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Obx(
-                              () => Text(
-                                profile.userName.value ?? 'Default name',
-                                style: const TextStyle(
-                                  fontSize: 34,
+            Expanded(
+              child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                  stream: routesController.list(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      // return Text("123");
+                      return ListView.builder(
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            DocumentSnapshot<Map<String, dynamic>> doc =
+                                snapshot.data!.docs[index];
+                            return GestureDetector(
+                              onTap: () => Get.toNamed(Routes.routeDescPage,
+                                  arguments: [doc.id]),
+                              child: getModelCardWidget(
+                                RouteModel.fromJson(
+                                  doc.data()!,
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10),
-                              child: Obx(
-                                () => Text(
-                                  profile.userEmail.value ?? 'Default email',
-                                  style: const TextStyle(
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const Divider(
-                              indent: 50,
-                              endIndent: 50,
-                              thickness: 3,
-                              height: 25,
-                            ),
-                            ...widgets
-                          ],
+                            );
+                          });
+                    }
+                  }),
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  const SizedBox(
+                    height: 120,
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Obx(
+                        () => Text(
+                          profile.userName.value ?? 'Default name',
+                          style: const TextStyle(
+                            fontSize: 34,
+                          ),
                         ),
-                      ],
-                    ),
-                  );
-                })
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: Obx(
+                          () => Text(
+                            profile.userEmail.value ?? 'Default email',
+                            style: const TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                        indent: 50,
+                        endIndent: 50,
+                        thickness: 3,
+                        height: 25,
+                      ),
+                      StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                          stream: routesController.list(),
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            } else {
+                              return ListView.builder(
+                                  itemCount: snapshot.data!.docs.length,
+                                  itemBuilder: (context, index) {
+                                    DocumentSnapshot<Map<String, dynamic>> doc =
+                                        snapshot.data!.docs[index];
+                                    return GestureDetector(
+                                      onTap: () => Get.toNamed(
+                                          Routes.routeDescPage,
+                                          arguments: [doc.id]),
+                                      child: getModelCardWidget(
+                                        RouteModel.fromJson(
+                                          doc.data()!,
+                                        ),
+                                      ),
+                                    );
+                                  });
+                            }
+                          }),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
