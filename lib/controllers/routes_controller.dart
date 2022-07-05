@@ -13,6 +13,7 @@ class RoutesController extends GetxController {
   static const uuid = Uuid();
   final routesDB = FirebaseFirestore.instance;
   final xmlStorage = FirebaseStorage.instance;
+  File? uploadFile;
 
   Future<RouteModel?> get(String id) async {
     try {

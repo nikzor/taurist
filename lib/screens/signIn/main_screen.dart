@@ -65,21 +65,18 @@ class _SignInPageState extends State<SignInPage> {
                       height: 34,
                       width: 80,
                       child: GestureDetector(
-                          onTap: () {
-                            // Navigator.pushNamed(
-                            //   context,
-                            //   '/signin',
-                            // );
-                            Get.toNamed(Routes.signUpPage);
-                          },
-                          child: const Text(
-                            'Sign up',
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontFamily: 'Inter',
-                                color: Color.fromRGBO(44, 83, 72, 1),
-                                fontWeight: FontWeight.w900),
-                          )),
+                        onTap: () {
+                          Get.toNamed(Routes.signUpPage);
+                        },
+                        child: const Text(
+                          'Sign up',
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontFamily: 'Inter',
+                              color: Color.fromRGBO(44, 83, 72, 1),
+                              fontWeight: FontWeight.w900),
+                        ),
+                      ),
                     )
                   ],
                 ),
@@ -147,10 +144,6 @@ class _SignInPageState extends State<SignInPage> {
                   children: [
                     TextButton(
                       onPressed: () {
-                        // Navigator.pushNamed(
-                        //   context,
-                        //   '/forgot',
-                        // );
                         Get.toNamed(Routes.forgotPasswordPage);
                       },
                       style: TextButton.styleFrom(

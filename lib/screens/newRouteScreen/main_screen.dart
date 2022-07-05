@@ -7,12 +7,11 @@ import 'package:file_picker/file_picker.dart';
 import 'package:taurist/data/route_model.dart';
 import 'package:uuid/uuid.dart';
 
-
 class NewRouteScreen extends StatefulWidget {
   const NewRouteScreen({super.key});
 
   @override
-  _NewRouteScreenState createState() => _NewRouteScreenState();
+  State<NewRouteScreen> createState() => _NewRouteScreenState();
 }
 
 class _NewRouteScreenState extends State<NewRouteScreen> {
@@ -21,13 +20,12 @@ class _NewRouteScreenState extends State<NewRouteScreen> {
   final descriptionController = TextEditingController();
   final uuid = const Uuid();
   File? uploadFile;
+
   void addXmlFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     if (result != null) {
       uploadFile = File(result.files.first.path!);
-    } else {
-      print("You have not picked the file!");
     }
   }
 
@@ -43,47 +41,112 @@ class _NewRouteScreenState extends State<NewRouteScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('New route creation'),
+        centerTitle: true,
+        backgroundColor: const Color.fromRGBO(44, 83, 72, 1),
       ),
-      body: Column(
-        children: [
-          const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text(
-              "Title",
-              style: TextStyle(
-                fontSize: 16.0,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.only(top: 20, left: 10),
+                width: MediaQuery.of(context).size.width,
+                child: const Text(
+                  "Route title",
+                  style: TextStyle(
+                    fontSize: 26.0,
+                  ),
+                  textAlign: TextAlign.start,
+                ),
               ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: titleController,
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text(
-              "Description",
-              style: TextStyle(
-                fontSize: 16.0,
+              Container(
+                margin: const EdgeInsets.only(top: 20, left: 10, right: 10),
+                width: MediaQuery.of(context).size.width,
+                child: TextField(
+                  controller: titleController,
+                  textInputAction: TextInputAction.next,
+                  decoration: InputDecoration(
+                    hintText: "Title",
+                    hintStyle: const TextStyle(
+                        color: Color.fromRGBO(189, 189, 189, 1), fontSize: 16),
+                    border: const OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromRGBO(44, 83, 72, 1))),
+                    suffixIcon: IconButton(
+                      onPressed: titleController.clear,
+                      icon: const Icon(
+                        Icons.clear,
+                        color: Color.fromRGBO(189, 189, 189, 1),
+                      ),
+                    ),
+                  ),
+                ),
               ),
-            ),
+              Container(
+                padding: const EdgeInsets.only(top: 20, left: 10),
+                width: MediaQuery.of(context).size.width,
+                child: const Text(
+                  "Route description",
+                  style: TextStyle(
+                    fontSize: 26.0,
+                  ),
+                  textAlign: TextAlign.start,
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 20, left: 10, right: 10),
+                width: MediaQuery.of(context).size.width,
+                child: TextField(
+                  controller: descriptionController,
+                  textInputAction: TextInputAction.next,
+                  minLines: 10,
+                  maxLines: 10,
+                  decoration: InputDecoration(
+                    hintText: "Description",
+                    hintStyle: const TextStyle(
+                        color: Color.fromRGBO(189, 189, 189, 1), fontSize: 16),
+                    border: const OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromRGBO(44, 83, 72, 1))),
+                    suffixIcon: IconButton(
+                      onPressed: descriptionController.clear,
+                      icon: const Icon(
+                        Icons.clear,
+                        color: Color.fromRGBO(189, 189, 189, 1),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: addXmlFile,
+                style: ElevatedButton.styleFrom(
+                  primary: const Color.fromRGBO(44, 83, 72, 1),
+                  onPrimary: Colors.white,
+                ),
+                child: const Text("Pick gpx file"),
+              )
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: descriptionController,
-            ),
-          ),
-          ElevatedButton(onPressed: addXmlFile, child: Text("Pick gpx file"))
-        ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color.fromRGBO(44, 83, 72, 1),
+        foregroundColor: Colors.white,
         onPressed: () async {
           String? uploadFileId = await routesController.addXml(uploadFile);
-          routesController.addOrUpdate(RouteModel(uuid.v4(), FirebaseAuth.instance.currentUser!.uid, titleController.text, descriptionController.text, 0.0, 0,
-              {}, uploadFileId ?? "someRandomId"));
+          routesController.addOrUpdate(
+            RouteModel(
+                uuid.v4(),
+                FirebaseAuth.instance.currentUser!.uid,
+                titleController.text,
+                descriptionController.text,
+                0.0,
+                0,
+                {},
+                uploadFileId ?? "someRandomId"),
+          );
         },
         tooltip: 'Upload data to the server',
         child: const Icon(Icons.upload),
