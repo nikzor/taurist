@@ -18,6 +18,7 @@ class _NewRouteScreenState extends State<NewRouteScreen> {
   final routesController = Get.put(RoutesController());
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
+  final durationController = TextEditingController();
   final uuid = const Uuid();
   File? uploadFile;
 
@@ -95,13 +96,13 @@ class _NewRouteScreenState extends State<NewRouteScreen> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 10),
+                margin: const EdgeInsets.only(top: 20, left: 10, right: 10),
                 width: Get.width,
                 child: TextField(
                   controller: descriptionController,
                   textInputAction: TextInputAction.next,
-                  minLines: 10,
-                  maxLines: 10,
+                  minLines: 5,
+                  maxLines: 5,
                   decoration: InputDecoration(
                     hintText: "Description",
                     hintStyle: const TextStyle(
@@ -119,38 +120,97 @@ class _NewRouteScreenState extends State<NewRouteScreen> {
                   ),
                 ),
               ),
+              Container(
+                padding: const EdgeInsets.only(top: 20, left: 10),
+                width: Get.width,
+                child: const Text(
+                  "Route duration",
+                  style: TextStyle(
+                    fontSize: 26.0,
+                  ),
+                  textAlign: TextAlign.start,
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 20),
+                width: Get.width,
+                child: TextField(
+                  controller: durationController,
+                  textInputAction: TextInputAction.next,
+                  minLines: 1,
+                  maxLines: 1,
+                  decoration: InputDecoration(
+                    hintText: "In minutes",
+                    hintStyle: const TextStyle(
+                        color: Color.fromRGBO(189, 189, 189, 1), fontSize: 16),
+                    border: const OutlineInputBorder(
+                        borderSide:
+                        BorderSide(color: Color.fromRGBO(44, 83, 72, 1))),
+                    suffixIcon: IconButton(
+                      onPressed: durationController.clear,
+                      icon: const Icon(
+                        Icons.clear,
+                        color: Color.fromRGBO(189, 189, 189, 1),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               ElevatedButton(
                 onPressed: addXmlFile,
                 style: ElevatedButton.styleFrom(
                   primary: const Color.fromRGBO(44, 83, 72, 1),
                   onPrimary: Colors.white,
                 ),
-                child: const Text("Pick gpx file"),
+                child: const SizedBox(width: 170,child: Center(child: Text("Pick .gpx file"),),),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  String? uploadFileId = await routesController.addXml(uploadFile);
+                  routesController.addOrUpdate(
+                    RouteModel(
+                        uuid.v4(),
+                        FirebaseAuth.instance.currentUser!.uid,
+                        titleController.text,
+                        descriptionController.text,
+                        0.0,
+                        durationController.text.trim().isNotEmpty
+                            ? int.parse(durationController.text.trim())
+                            : 0,
+                        {},
+                        uploadFileId ?? "someRandomId"),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: const Color.fromRGBO(44, 83, 72, 1),
+                  onPrimary: Colors.white,
+                ),
+                child: const SizedBox(width: 170,child: Center(child: Text("Upload data to the server"),),),
               )
             ],
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color.fromRGBO(44, 83, 72, 1),
-        foregroundColor: Colors.white,
-        onPressed: () async {
-          String? uploadFileId = await routesController.addXml(uploadFile);
-          routesController.addOrUpdate(
-            RouteModel(
-                uuid.v4(),
-                FirebaseAuth.instance.currentUser!.uid,
-                titleController.text,
-                descriptionController.text,
-                0.0,
-                0,
-                {},
-                uploadFileId ?? "someRandomId"),
-          );
-        },
-        tooltip: 'Upload data to the server',
-        child: const Icon(Icons.upload),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   backgroundColor: const Color.fromRGBO(44, 83, 72, 1),
+      //   foregroundColor: Colors.white,
+      //   onPressed: () async {
+      //     String? uploadFileId = await routesController.addXml(uploadFile);
+      //     routesController.addOrUpdate(
+      //       RouteModel(
+      //           uuid.v4(),
+      //           FirebaseAuth.instance.currentUser!.uid,
+      //           titleController.text,
+      //           descriptionController.text,
+      //           0.0,
+      //           0,
+      //           {},
+      //           uploadFileId ?? "someRandomId"),
+      //     );
+      //   },
+      //   tooltip: 'Upload data to the server',
+      //   child: const Icon(Icons.upload),
+      // ),
     );
   }
 }
