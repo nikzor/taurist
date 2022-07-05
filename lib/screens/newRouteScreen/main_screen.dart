@@ -51,7 +51,7 @@ class _NewRouteScreenState extends State<NewRouteScreen> {
             children: [
               Container(
                 padding: const EdgeInsets.only(top: 20, left: 10),
-                width: MediaQuery.of(context).size.width,
+                width: Get.width,
                 child: const Text(
                   "Route title",
                   style: TextStyle(
@@ -62,7 +62,7 @@ class _NewRouteScreenState extends State<NewRouteScreen> {
               ),
               Container(
                 margin: const EdgeInsets.only(top: 20, left: 10, right: 10),
-                width: MediaQuery.of(context).size.width,
+                width: Get.width,
                 child: TextField(
                   controller: titleController,
                   textInputAction: TextInputAction.next,
@@ -85,7 +85,7 @@ class _NewRouteScreenState extends State<NewRouteScreen> {
               ),
               Container(
                 padding: const EdgeInsets.only(top: 20, left: 10),
-                width: MediaQuery.of(context).size.width,
+                width: Get.width,
                 child: const Text(
                   "Route description",
                   style: TextStyle(
@@ -95,8 +95,8 @@ class _NewRouteScreenState extends State<NewRouteScreen> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 20, left: 10, right: 10),
-                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 10),
+                width: Get.width,
                 child: TextField(
                   controller: descriptionController,
                   textInputAction: TextInputAction.next,
