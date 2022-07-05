@@ -1,4 +1,4 @@
-# Taurist App
+ # Taurist App
 
 
 ## Getting Started
