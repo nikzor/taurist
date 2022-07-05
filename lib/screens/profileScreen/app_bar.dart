@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:taurist/controllers/authorization_controller.dart';
 import 'package:taurist/controllers/profile_controller.dart';
 import 'package:get/get.dart';
+import 'package:taurist/routes.dart';
 
 class MySliverAppBar extends SliverPersistentHeaderDelegate {
   final double expandedHeight;
@@ -39,7 +40,7 @@ class MySliverAppBar extends SliverPersistentHeaderDelegate {
               ),
               IconButton(
                 onPressed: () {
-                  Get.toNamed('/profileSettings');
+                  Get.toNamed(Routes.profileSettingsPage);
                 },
                 icon: const Icon(
                   Icons.settings,

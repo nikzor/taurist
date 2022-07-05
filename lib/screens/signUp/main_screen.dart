@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:taurist/controllers/authorization_controller.dart';
+import 'package:taurist/screens/signIn/main_screen.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
@@ -78,10 +81,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         width: 80,
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.popUntil(
-                              context,
-                              ModalRoute.withName('/login'),
-                            );
+                            Get.offAll(()=>SignInPage());
                           },
                           child: const Text(
                             'Log In',
