@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:taurist/controllers/profile_controller.dart';
 import 'package:taurist/controllers/routes_controller.dart';
@@ -19,12 +20,15 @@ class RoutesPageState extends State<RoutesPage> {
   final profile = Get.put(ProfileController());
   final CollectionReference routesDB =
   FirebaseFirestore.instance.collection('routes');
-  bool flag = false;
+  /*bool flag = Get.isDarkMode;*/
   @override
   Widget build(BuildContext context) {
-    setState((){
+    bool flag = Get.isDarkMode;
+    this.setState((){
       flag = Get.isDarkMode;
+      //flag = Get.isDarkMode;
     });
+
     return Scaffold(
       appBar: AppBar(
         title: Text(

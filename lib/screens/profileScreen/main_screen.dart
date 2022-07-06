@@ -21,7 +21,7 @@ class _ProfilePageState extends State<ProfilePage> {
   final user = AuthorizationController.instance.auth.currentUser;
   final profile = Get.put(ProfileController());
   final routesController = Get.put(RoutesController());
-  bool flag = false;
+  bool flag = Get.isDarkMode;
 
   @override
   Widget build(BuildContext context) {
