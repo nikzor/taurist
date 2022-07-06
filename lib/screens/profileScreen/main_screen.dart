@@ -27,9 +27,9 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        backgroundColor: Color.fromRGBO(44, 83, 72, 1),
+        backgroundColor: const Color.fromRGBO(44, 83, 72, 1),
         child: flag
-            ? Icon(
+            ? const Icon(
                 Icons.nights_stay,
                 color: Colors.white,
               )

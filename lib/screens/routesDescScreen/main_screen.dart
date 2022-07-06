@@ -5,15 +5,10 @@ import 'package:taurist/data/route_model.dart';
 
 import '../../sharedWidgets/model_desc_card.dart';
 
-class RoutesDescPage extends StatefulWidget {
-  const RoutesDescPage({Key? key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => RoutesDescPageState();
-}
-
-class RoutesDescPageState extends State<RoutesDescPage> {
+class RoutesDescPage extends StatelessWidget {
   final routesController = Get.put(RoutesController());
+
+  RoutesDescPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +22,8 @@ class RoutesDescPageState extends State<RoutesDescPage> {
           builder: (context, AsyncSnapshot<RouteModel?> snapshot) {
             Widget mapWidget = !snapshot.hasData
                 ? const CircularProgressIndicator(
-                    semanticsLabel: 'Loading...',
-                  )
+              semanticsLabel: 'Loading...',
+            )
                 : LiveLocationPage(snapshot.data!);
             return mapWidget;
           },

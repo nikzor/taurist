@@ -258,10 +258,10 @@ class _ProfileSettingsState extends State<ProfileSettings> {
         controller: controller,
         obscureText: isPassword ? showPassword : false,
         decoration: InputDecoration(
-            enabledBorder: UnderlineInputBorder(
+            enabledBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Color(0xFF49454F)),
             ),
-            focusedBorder: UnderlineInputBorder(
+            focusedBorder: const UnderlineInputBorder(
               borderSide: BorderSide(color: Color(0xFF49454F)),
             ),
           suffixIcon: isPassword

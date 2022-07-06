@@ -53,7 +53,7 @@ void main() async {
             name: Routes.forgotPasswordPage,
             page: () => const ForgotPasswordPage()),
         GetPage(name: Routes.routesPage, page: () => const RoutesPage()),
-        GetPage(name: Routes.routeDescPage, page: () => const RoutesDescPage()),
+        GetPage(name: Routes.routeDescPage, page: () => RoutesDescPage()),
         GetPage(name: Routes.newRouteScreen, page: () => const NewRouteScreen()),
         GetPage(name: Routes.profilePage, page: () => const ProfilePage()),
         GetPage(

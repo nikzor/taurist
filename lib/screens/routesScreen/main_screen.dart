@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:get/get.dart';
 import 'package:taurist/controllers/profile_controller.dart';
 import 'package:taurist/controllers/routes_controller.dart';
@@ -24,7 +23,7 @@ class RoutesPageState extends State<RoutesPage> {
   @override
   Widget build(BuildContext context) {
     bool flag = Get.isDarkMode;
-    this.setState(() {
+    setState(() {
       flag = Get.isDarkMode;
     });
 
@@ -34,7 +33,7 @@ class RoutesPageState extends State<RoutesPage> {
           'Taurist',
           style: TextStyle(
               fontFamily: 'Inter',
-              color: flag ? Colors.white : Color.fromRGBO(44, 83, 72, 1),
+              color: flag ? Colors.white : const Color.fromRGBO(44, 83, 72, 1),
               fontSize: 45,
               fontWeight: FontWeight.w800),
         ),
@@ -78,11 +77,11 @@ class RoutesPageState extends State<RoutesPage> {
                     style: TextStyle(
                         fontFamily: 'Inter',
                         color:
-                            flag ? Colors.white : Color.fromRGBO(44, 83, 72, 1),
+                            flag ? Colors.white : const Color.fromRGBO(44, 83, 72, 1),
                         fontSize: 25,
                         fontWeight: FontWeight.w800),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 15,
                   ),
                 ],
@@ -99,17 +98,17 @@ class RoutesPageState extends State<RoutesPage> {
                                 fontFamily: 'Inter',
                                 color: flag
                                     ? Colors.white
-                                    : Color.fromRGBO(44, 83, 72, 1),
+                                    : const Color.fromRGBO(44, 83, 72, 1),
                                 fontSize: 12,
                                 fontWeight: FontWeight.w800)),
-                        SizedBox(
+                        const SizedBox(
                           width: 3,
                         ),
                         Icon(
                           Icons.add,
                           color: flag
                               ? Colors.white
-                              : Color.fromRGBO(44, 83, 72, 1),
+                              : const Color.fromRGBO(44, 83, 72, 1),
                         )
                       ],
                     ),
