@@ -17,8 +17,18 @@ import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp()
-      .then((value) => Get.put(AuthorizationController()));
+  // await Firebase.initializeApp(
+
+  //   ),
+  // );
+  await Firebase.initializeApp(
+      // options: FirebaseOptions(
+      //   apiKey: "AIzaSyDkAx_7BpwBcljaKaN8SLBTwwMZVJqDMIs",
+      //   appId: "1:1091313771929:web:ca39a90ef44b0f02a19f08",
+      //   messagingSenderId: "1091313771929",
+      //   projectId: "tauristapp-74b3f",
+      //   storageBucket: "tauristapp-74b3f.appspot.com",
+  ).then((value) => Get.put(AuthorizationController()));
 
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   SystemChrome.setPreferredOrientations([
