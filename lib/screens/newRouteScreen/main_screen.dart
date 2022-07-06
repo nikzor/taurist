@@ -5,6 +5,7 @@ import 'package:taurist/controllers/routes_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:taurist/data/route_model.dart';
+import 'package:taurist/helpers/gpx_file_handler.dart';
 import 'package:uuid/uuid.dart';
 
 class NewRouteScreen extends StatefulWidget {
@@ -19,23 +20,28 @@ class _NewRouteScreenState extends State<NewRouteScreen> {
   final titleController = TextEditingController();
   final descriptionController = TextEditingController();
   final durationController = TextEditingController();
+  final distanceController = TextEditingController();
   final uuid = const Uuid();
-  File? uploadFile;
+  File? storedGpxFile;
 
-  void addXmlFile() async {
+  Future<String?> addGpxFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     if (result != null) {
-      uploadFile = File(result.files.first.path!);
+      storedGpxFile = File(result.files.first.path!);
+      return await storedGpxFile!.readAsString();
     }
+    return null;
   }
 
-  @override
-  void dispose() {
-    titleController.dispose();
-    descriptionController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   titleController.dispose();
+  //   descriptionController.dispose();
+  //   descriptionController.dispose();
+  //   durationController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -132,7 +138,8 @@ class _NewRouteScreenState extends State<NewRouteScreen> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.only(top: 20, left: 10, right: 10, bottom: 20),
+                margin: const EdgeInsets.only(
+                    top: 20, left: 10, right: 10, bottom: 20),
                 width: Get.width,
                 child: TextField(
                   controller: durationController,
@@ -145,7 +152,7 @@ class _NewRouteScreenState extends State<NewRouteScreen> {
                         color: Color.fromRGBO(189, 189, 189, 1), fontSize: 16),
                     border: const OutlineInputBorder(
                         borderSide:
-                        BorderSide(color: Color.fromRGBO(44, 83, 72, 1))),
+                            BorderSide(color: Color.fromRGBO(44, 83, 72, 1))),
                     suffixIcon: IconButton(
                       onPressed: durationController.clear,
                       icon: const Icon(
@@ -156,24 +163,72 @@ class _NewRouteScreenState extends State<NewRouteScreen> {
                   ),
                 ),
               ),
+              Container(
+                padding: const EdgeInsets.only(top: 20, left: 10),
+                width: Get.width,
+                child: const Text(
+                  "Route distance",
+                  style: TextStyle(
+                    fontSize: 26.0,
+                  ),
+                  textAlign: TextAlign.start,
+                ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(
+                    top: 20, left: 10, right: 10, bottom: 20),
+                width: Get.width,
+                child: TextField(
+                  controller: distanceController,
+                  enabled: false,
+                  textInputAction: TextInputAction.next,
+                  minLines: 1,
+                  maxLines: 1,
+                  decoration: InputDecoration(
+                    hintText: "In kilometers",
+                    hintStyle: const TextStyle(
+                        color: Color.fromRGBO(189, 189, 189, 1), fontSize: 16),
+                    border: const OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromRGBO(44, 83, 72, 1))),
+                    suffixIcon: IconButton(
+                      onPressed: distanceController.clear,
+                      icon: const Icon(
+                        Icons.clear,
+                        color: Color.fromRGBO(189, 189, 189, 1),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               ElevatedButton(
-                onPressed: addXmlFile,
+                onPressed: () {
+                  addGpxFile().then(
+                      (value) => {distanceController.text = overallDistance(value!).toString()});
+                },
                 style: ElevatedButton.styleFrom(
                   primary: const Color.fromRGBO(44, 83, 72, 1),
                   onPrimary: Colors.white,
                 ),
-                child: const SizedBox(width: 170,child: Center(child: Text("Pick .gpx file"),),),
+                child: const SizedBox(
+                  width: 170,
+                  child: Center(
+                    child: Text("Pick .gpx file"),
+                  ),
+                ),
               ),
               ElevatedButton(
                 onPressed: () async {
-                  String? uploadFileId = await routesController.addXml(uploadFile);
+                  Get.back();
+                  String? uploadFileId =
+                      await routesController.addXml(storedGpxFile);
                   routesController.addOrUpdate(
                     RouteModel(
                         uuid.v4(),
                         FirebaseAuth.instance.currentUser!.uid,
                         titleController.text,
                         descriptionController.text,
-                        0.0,
+                        double.parse(distanceController.text),
                         durationController.text.trim().isNotEmpty
                             ? int.parse(durationController.text.trim())
                             : 0,
@@ -185,7 +240,12 @@ class _NewRouteScreenState extends State<NewRouteScreen> {
                   primary: const Color.fromRGBO(44, 83, 72, 1),
                   onPrimary: Colors.white,
                 ),
-                child: const SizedBox(width: 170,child: Center(child: Text("Upload data to the server"),),),
+                child: const SizedBox(
+                  width: 170,
+                  child: Center(
+                    child: Text("Upload data to the server"),
+                  ),
+                ),
               )
             ],
           ),

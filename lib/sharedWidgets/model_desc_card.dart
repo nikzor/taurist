@@ -5,65 +5,10 @@ import 'package:flutter_map/plugin_api.dart'; // Only import if required functio
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:taurist/data/route_model.dart'; // Recommended for most use-cases
-import 'package:gpx/gpx.dart';
 import 'package:location/location.dart';
+import 'package:taurist/helpers/gpx_file_handler.dart';
 
 import 'package:taurist/controllers/routes_controller.dart';
-
-List<LatLng> extractWaypoints(String xmlFile) {
-  var xmlGpx = GpxReader().fromString(xmlFile);
-  List<LatLng> waypoints = [];
-  for (var trk in xmlGpx.trks) {
-    for (var trkseg in trk.trksegs) {
-      for (var wpt in trkseg.trkpts) {
-        waypoints.add(LatLng(wpt.lat ?? 0, wpt.lon ?? 0));
-      }
-    }
-  }
-  return waypoints;
-}
-
-Future<void> _displayPointInfo(BuildContext context, Wpt wpt) async {
-  return showDialog<void>(
-    context: context,
-    barrierDismissible: true,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text(wpt.name!),
-        content: SingleChildScrollView(
-          child: Text(wpt.desc!),
-        ),
-        actions: <Widget>[
-          TextButton(
-            child: const Text('Close'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
-}
-
-List<Marker> extractMarkers(String xmlFile, BuildContext context) {
-  var xmlGpx = GpxReader().fromString(xmlFile);
-  List<Marker> markers = [];
-  for (var wpt in xmlGpx.wpts) {
-    markers.add(
-      Marker(
-        width: 60.0,
-        height: 60.0,
-        point: LatLng(wpt.lat ?? 0, wpt.lon ?? 0),
-        builder: (ctx) => GestureDetector(
-          child: const Icon(Icons.restaurant),
-          onTap: () => _displayPointInfo(context, wpt),
-        ),
-      ),
-    );
-  }
-  return markers;
-}
 
 class LiveLocationPage extends StatefulWidget {
   final RouteModel model;
@@ -160,17 +105,15 @@ class _LiveLocationPageState extends State<LiveLocationPage> {
       currentLatLng = LatLng(0, 0);
     }
 
-    var markers = <Marker>[
-      Marker(
-        width: 80.0,
-        height: 80.0,
-        point: currentLatLng,
-        builder: (ctx) => const Icon(
-          Icons.circle,
-          color: Colors.red,
-        ),
+    var locationMarker = Marker(
+      width: 80.0,
+      height: 80.0,
+      point: currentLatLng,
+      builder: (ctx) => const Icon(
+        Icons.circle,
+        color: Colors.red,
       ),
-    ];
+    );
 
     return FutureBuilder(
       future: routesController.getGpxMap(widget.model.xmlFileId),
@@ -194,6 +137,7 @@ class _LiveLocationPageState extends State<LiveLocationPage> {
                     subdomains: ['a', 'b', 'c'],
                     // worse performance, but better maps
                     // retinaMode: true,
+                    // maxZoom: 22,
                   ),
                   PolylineLayerOptions(
                     polylines: [
@@ -207,7 +151,7 @@ class _LiveLocationPageState extends State<LiveLocationPage> {
                   MarkerLayerOptions(
                     markers: [
                       ...extractMarkers(snapshot.data!, context),
-                      ...markers
+                      locationMarker,
                     ],
                     rotate: true,
                   ),
