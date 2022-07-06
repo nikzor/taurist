@@ -50,34 +50,6 @@ class _ProfilePageState extends State<ProfilePage> {
               pinned: true,
               delegate: MySliverAppBar(expandedHeight: 200.0),
             ),
-            Expanded(
-              child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                  stream: routesController.list(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else {
-                      // return Text("123");
-                      return ListView.builder(
-                          itemCount: snapshot.data!.docs.length,
-                          itemBuilder: (context, index) {
-                            DocumentSnapshot<Map<String, dynamic>> doc =
-                                snapshot.data!.docs[index];
-                            return GestureDetector(
-                              onTap: () => Get.toNamed(Routes.routeDescPage,
-                                  arguments: [doc.id]),
-                              child: getModelCardWidget(
-                                RouteModel.fromJson(
-                                  doc.data()!,
-                                ),
-                              ),
-                            );
-                          });
-                    }
-                  }),
-            ),
             SliverList(
               delegate: SliverChildListDelegate(
                 [
@@ -112,36 +84,41 @@ class _ProfilePageState extends State<ProfilePage> {
                         thickness: 3,
                         height: 25,
                       ),
-                      StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                          stream: routesController.list(),
-                          builder: (context, snapshot) {
-                            if (!snapshot.hasData) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            } else {
-                              return ListView.builder(
-                                  itemCount: snapshot.data!.docs.length,
-                                  itemBuilder: (context, index) {
-                                    DocumentSnapshot<Map<String, dynamic>> doc =
-                                        snapshot.data!.docs[index];
-                                    return GestureDetector(
-                                      onTap: () => Get.toNamed(
-                                          Routes.routeDescPage,
-                                          arguments: [doc.id]),
-                                      child: getModelCardWidget(
-                                        RouteModel.fromJson(
-                                          doc.data()!,
-                                        ),
-                                      ),
-                                    );
-                                  });
-                            }
-                          }),
                     ],
                   ),
                 ],
               ),
+            ),
+            SliverToBoxAdapter(
+              child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                  stream: routesController.list(),
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      return ListView.builder(
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: snapshot.data!.docs.length,
+                        itemBuilder: (context, index) {
+                          DocumentSnapshot<Map<String, dynamic>> doc =
+                              snapshot.data!.docs[index];
+                          return GestureDetector(
+                            onTap: () => Get.toNamed(Routes.routeDescPage,
+                                arguments: [doc.id]),
+                            child: getModelCardWidget(
+                              RouteModel.fromJson(
+                                doc.data()!,
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    }
+                  },
+                ),
             ),
           ],
         ),
