@@ -29,7 +29,7 @@ class RoutesDescPageState extends State<RoutesDescPage> {
                 ? const CircularProgressIndicator(
                     semanticsLabel: 'Loading...',
                   )
-                : getModelDescCardWidget(snapshot.data!);
+                : LiveLocationPage(snapshot.data!);
             return mapWidget;
           },
         ),
