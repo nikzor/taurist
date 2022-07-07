@@ -121,6 +121,7 @@ class _LiveLocationPageState extends State<LiveLocationPage> {
         return !snapshot.hasData
             ? const CircularProgressIndicator(
                 semanticsLabel: 'Loading...',
+                color: Color.fromRGBO(44, 83, 72, 1),
               )
             : FlutterMap(
                 mapController: _mapController,
