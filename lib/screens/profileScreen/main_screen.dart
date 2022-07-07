@@ -33,7 +33,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 Icons.nights_stay,
                 color: Colors.white,
               )
-            : Icon(Icons.sunny),
+            : const Icon(Icons.sunny),
         onPressed: () {
           Get.isDarkMode
               ? Get.changeTheme(ThemeData.light())

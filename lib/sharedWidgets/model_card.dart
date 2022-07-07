@@ -33,9 +33,9 @@ Widget getModelCardWidget(RouteModel model,
           Container(
             padding: const EdgeInsets.all(10.0),
             margin: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Icon(
-              color: Color.fromRGBO(44, 83, 72, 1),
+            child: const Icon(
               Icons.bike_scooter,
+              color: Color.fromRGBO(44, 83, 72, 1),
               size: 36,
             ),
           ),
