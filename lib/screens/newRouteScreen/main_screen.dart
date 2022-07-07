@@ -203,8 +203,10 @@ class _NewRouteScreenState extends State<NewRouteScreen> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  addGpxFile().then(
-                      (value) => {distanceController.text = overallDistance(value!).toString()});
+                  addGpxFile().then((value) => {
+                        distanceController.text =
+                            overallDistance(value!).toString()
+                      });
                 },
                 style: ElevatedButton.styleFrom(
                   primary: const Color.fromRGBO(44, 83, 72, 1),
@@ -219,22 +221,32 @@ class _NewRouteScreenState extends State<NewRouteScreen> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  Get.back();
-                  String? uploadFileId =
-                      await routesController.addXml(storedGpxFile);
-                  routesController.addOrUpdate(
-                    RouteModel(
-                        uuid.v4(),
-                        FirebaseAuth.instance.currentUser!.uid,
-                        titleController.text,
-                        descriptionController.text,
-                        double.parse(distanceController.text),
-                        durationController.text.trim().isNotEmpty
-                            ? int.parse(durationController.text.trim())
-                            : 0,
-                        {},
-                        uploadFileId ?? "someRandomId"),
-                  );
+                  if (titleController.text == "" ||
+                      descriptionController.text == "") {
+                    Get.snackbar(
+                      'title',
+                      'message',
+                      titleText: const Text(
+                          'You cannot add route without title or description'),
+                    );
+                  } else {
+                    Get.back();
+                    String? uploadFileId =
+                        await routesController.addXml(storedGpxFile);
+                    routesController.addOrUpdate(
+                      RouteModel(
+                          uuid.v4(),
+                          FirebaseAuth.instance.currentUser!.uid,
+                          titleController.text,
+                          descriptionController.text,
+                          double.parse(distanceController.text),
+                          durationController.text.trim().isNotEmpty
+                              ? int.parse(durationController.text.trim())
+                              : 0,
+                          {},
+                          uploadFileId ?? "someRandomId"),
+                    );
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   primary: const Color.fromRGBO(44, 83, 72, 1),

@@ -14,20 +14,23 @@ class RoutesDescPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Map"),
+        title: const Text("Your route"),
         backgroundColor: const Color.fromRGBO(44, 83, 72, 1),
+        centerTitle: true,
       ),
       body: SafeArea(
         child: FutureBuilder(
           future: routesController.get(Get.arguments[0]),
           builder: (context, AsyncSnapshot<RouteModel?> snapshot) {
             Widget mapWidget = !snapshot.hasData
-                ? const Center(
-                    child: CircularProgressIndicator(
-                      semanticsLabel: 'Loading...',
-                      color: Color.fromRGBO(44, 83, 72, 1),
+                ? SizedBox(
+                  child: const Center(
+                      child: CircularProgressIndicator(
+                        semanticsLabel: 'Loading...',
+                        color: Color.fromRGBO(44, 83, 72, 1),
+                      ),
                     ),
-                  )
+                )
                 : LiveLocationPage(snapshot.data!);
             var titleText =
                 !snapshot.hasData ? "Loading..." : snapshot.data!.title;

@@ -26,11 +26,13 @@ void main() async {
   } else {
     await Firebase.initializeApp(
       options: const FirebaseOptions(
-        apiKey: "AIzaSyDkAx_7BpwBcljaKaN8SLBTwwMZVJqDMIs",
-        appId: "1:1091313771929:web:ca39a90ef44b0f02a19f08",
-        messagingSenderId: "1091313771929",
-        projectId: "tauristapp-74b3f",
-        storageBucket: "tauristapp-74b3f.appspot.com",
+          apiKey: "AIzaSyDkAx_7BpwBcljaKaN8SLBTwwMZVJqDMIs",
+          authDomain: "tauristapp-74b3f.firebaseapp.com",
+          projectId: "tauristapp-74b3f",
+          storageBucket: "tauristapp-74b3f.appspot.com",
+          messagingSenderId: "1091313771929",
+          appId: "1:1091313771929:web:ca39a90ef44b0f02a19f08",
+          measurementId: "G-RWMW81901P",
       ),
     ).then((value) => Get.put(AuthorizationController()));
   }

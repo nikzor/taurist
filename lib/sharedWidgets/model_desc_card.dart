@@ -112,10 +112,12 @@ class LiveLocationPageState extends State<LiveLocationPage> {
       future: routesController.getGpxMap(widget.model.xmlFileId),
       builder: (context, AsyncSnapshot<String> snapshot) {
         return !snapshot.hasData
-            ? const CircularProgressIndicator(
-                semanticsLabel: 'Loading...',
-                color: Color.fromRGBO(44, 83, 72, 1),
-              )
+            ? const Center(
+              child: CircularProgressIndicator(
+                  semanticsLabel: 'Loading...',
+                  color: Color.fromRGBO(44, 83, 72, 1),
+                ),
+            )
             : FlutterMap(
                 mapController: _mapController,
                 options: MapOptions(
