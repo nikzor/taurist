@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_map/flutter_map.dart'; // Suitable for most situations
-import 'package:flutter_map/plugin_api.dart'; // Only import if required functionality is not exposed by 'flutter_map.dart'
+import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map/plugin_api.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'package:taurist/controllers/routes_controller.dart';
-import 'package:taurist/data/route_model.dart'; // Recommended for most use-cases
+import 'package:taurist/data/route_model.dart';
 import 'package:taurist/helpers/gpx_file_handler.dart';
 
 class LiveLocationPage extends StatefulWidget {
@@ -22,9 +22,11 @@ class LiveLocationPageState extends State<LiveLocationPage> {
   LocationData? _currentLocation;
   late final MapController _mapController;
 
+  // bool _liveUpdate = false;
   bool _permission = false;
 
-  var interActiveFlags = InteractiveFlag.all;
+  // var interActiveFlags = InteractiveFlag.all;
+  var interActiveFlags = InteractiveFlag.all - InteractiveFlag.drag;
 
   final Location _locationService = Location();
 
@@ -61,10 +63,12 @@ class LiveLocationPageState extends State<LiveLocationPage> {
                 setState(
                   () {
                     _currentLocation = result;
-                    _mapController.move(
-                        LatLng(_currentLocation!.latitude!,
-                            _currentLocation!.longitude!),
-                        _mapController.zoom);
+                    // if (_liveUpdate) {
+                    //   _mapController.move(
+                    //       LatLng(_currentLocation!.latitude!,
+                    //           _currentLocation!.longitude!),
+                    //       _mapController.zoom);
+                    // }
                   },
                 );
               }
@@ -90,8 +94,6 @@ class LiveLocationPageState extends State<LiveLocationPage> {
 
     LatLng currentLatLng;
 
-    // Until currentLocation is initially updated, Widget can locate to 0, 0
-    // by default or store previous location value to show.
     if (_currentLocation != null) {
       currentLatLng =
           LatLng(_currentLocation!.latitude!, _currentLocation!.longitude!);
@@ -124,6 +126,7 @@ class LiveLocationPageState extends State<LiveLocationPage> {
                   zoom: 17.0,
                   minZoom: 1.5,
                   maxZoom: 18.0,
+                  interactiveFlags: interActiveFlags,
                 ),
                 layers: [
                   TileLayerOptions(
