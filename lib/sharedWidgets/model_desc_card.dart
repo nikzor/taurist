@@ -65,11 +65,13 @@ class LiveLocationPageState extends State<LiveLocationPage> {
     location = await _locationService.getLocation();
     _locationData = location;
     _locationService.onLocationChanged.listen(
-          (LocationData result) async {
+      (LocationData result) async {
         if (mounted) {
           setState(
-                () {
+            () {
               _locationData = result;
+
+              /// for live location update
               // if (_liveUpdate) {
               //   _mapController.move(
               //       LatLng(_currentLocation!.latitude!,
@@ -111,48 +113,48 @@ class LiveLocationPageState extends State<LiveLocationPage> {
       builder: (context, AsyncSnapshot<String> snapshot) {
         return !snapshot.hasData
             ? const CircularProgressIndicator(
-          semanticsLabel: 'Loading...',
-          color: Color.fromRGBO(44, 83, 72, 1),
-        )
+                semanticsLabel: 'Loading...',
+                color: Color.fromRGBO(44, 83, 72, 1),
+              )
             : FlutterMap(
-          mapController: _mapController,
-          options: MapOptions(
-            center: extractWaypoints(snapshot.data!).first,
-            zoom: 17.0,
-            minZoom: 1.5,
-            maxZoom: 18.0,
-            interactiveFlags: interActiveFlags,
-          ),
-          layers: [
-            TileLayerOptions(
-              urlTemplate:
-              "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-              subdomains: ['a', 'b', 'c'],
-
-              /// worse performance, but better maps
-              /// retinaMode: true,
-              /// maxZoom: 22,
-              tilesContainerBuilder:
-              Get.isDarkMode ? darkModeTilesContainerBuilder : null,
-            ),
-            PolylineLayerOptions(
-              polylines: [
-                Polyline(
-                  points: extractWaypoints(snapshot.data!),
-                  strokeWidth: 3.5,
-                  color: Colors.purpleAccent,
+                mapController: _mapController,
+                options: MapOptions(
+                  center: extractWaypoints(snapshot.data!).first,
+                  zoom: 17.0,
+                  minZoom: 1.5,
+                  maxZoom: 18.0,
+                  interactiveFlags: interActiveFlags,
                 ),
-              ],
-            ),
-            MarkerLayerOptions(
-              markers: [
-                ...extractMarkers(snapshot.data!, context),
-                locationMarker,
-              ],
-              rotate: true,
-            ),
-          ],
-        );
+                layers: [
+                  TileLayerOptions(
+                    urlTemplate:
+                        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                    subdomains: ['a', 'b', 'c'],
+
+                    /// worse performance, but better maps
+                    // retinaMode: true,
+                    // maxZoom: 22,
+                    tilesContainerBuilder:
+                        Get.isDarkMode ? darkModeTilesContainerBuilder : null,
+                  ),
+                  PolylineLayerOptions(
+                    polylines: [
+                      Polyline(
+                        points: extractWaypoints(snapshot.data!),
+                        strokeWidth: 3.5,
+                        color: Colors.purpleAccent,
+                      ),
+                    ],
+                  ),
+                  MarkerLayerOptions(
+                    markers: [
+                      ...extractMarkers(snapshot.data!, context),
+                      locationMarker,
+                    ],
+                    rotate: true,
+                  ),
+                ],
+              );
       },
     );
   }
