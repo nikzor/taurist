@@ -57,6 +57,11 @@ class LiveLocationPageState extends State<LiveLocationPage> {
       }
     }
 
+    await _locationService.changeSettings(
+      accuracy: LocationAccuracy.high,
+      interval: 1000,
+    );
+
     location = await _locationService.getLocation();
     _locationData = location;
     _locationService.onLocationChanged.listen(
@@ -76,46 +81,6 @@ class LiveLocationPageState extends State<LiveLocationPage> {
         }
       },
     );
-
-    // try {
-    //   _serviceEnabled = await _locationService.serviceEnabled();
-    //
-    //   if (!_serviceEnabled) {
-    //     var permission = await _locationService.requestPermission();
-    //     _permission = permission == PermissionStatus.granted;
-    //
-    //     if (_permission) {
-    //       location = await _locationService.getLocation();
-    //       _locationData = location;
-    //       _locationService.onLocationChanged.listen(
-    //         (LocationData result) async {
-    //           if (mounted) {
-    //             setState(
-    //               () {
-    //                 _locationData = result;
-    //                 // if (_liveUpdate) {
-    //                 //   _mapController.move(
-    //                 //       LatLng(_currentLocation!.latitude!,
-    //                 //           _currentLocation!.longitude!),
-    //                 //       _mapController.zoom);
-    //                 // }
-    //               },
-    //             );
-    //           }
-    //         },
-    //       );
-    //     }
-    //   } else {
-    //     serviceRequestResult = await _locationService.requestService();
-    //     if (serviceRequestResult) {
-    //       initLocationService();
-    //       return;
-    //     }
-    //   }
-    // } on PlatformException catch (e) {
-    //   debugPrint(e.toString());
-    //   location = null;
-    // }
   }
 
   @override
