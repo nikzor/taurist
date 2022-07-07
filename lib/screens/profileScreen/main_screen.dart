@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taurist/controllers/authorization_controller.dart';
@@ -103,15 +104,16 @@ class _ProfilePageState extends State<ProfilePage> {
                       shrinkWrap: true,
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context, index) {
-                        DocumentSnapshot<Map<String, dynamic>> doc =
-                            snapshot.data!.docs[index];
+                        RouteModel doc =
+                        RouteModel.fromJson(snapshot.data!.docs[index].data());
+                        if (doc.ownerId != FirebaseAuth.instance.currentUser!.uid) {
+                          return Container();
+                        }
                         return GestureDetector(
                           onTap: () => Get.toNamed(Routes.routeDescPage,
                               arguments: [doc.id]),
                           child: getModelCardWidget(
-                            RouteModel.fromJson(
-                              doc.data()!,
-                            ),
+                            doc,
                             removable: true,
                             controller: routesController,
                           ),
