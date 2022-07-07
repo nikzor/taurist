@@ -28,37 +28,45 @@ class RoutesPageState extends State<RoutesPage> {
     });
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Taurist',
-          style: TextStyle(
-              fontFamily: 'Inter',
-              color: flag ? Colors.white : const Color.fromRGBO(44, 83, 72, 1),
-              fontSize: 45,
-              fontWeight: FontWeight.w800),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.transparent /*Colors.red*/,
-        elevation: 0,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 2, top: 5),
-            child: ElevatedButton(
-              onPressed: () => Get.toNamed(Routes.profilePage),
-              style: ElevatedButton.styleFrom(
-                primary: const Color.fromRGBO(44, 83, 72, 1),
-                shape: const CircleBorder(),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(100),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AppBar(
+              title: Text(
+                'Taurist',
+                style: TextStyle(
+                    fontFamily: 'Inter',
+                    color: flag ? Colors.white : const Color.fromRGBO(44, 83, 72, 1),
+                    fontSize: 45,
+                    fontWeight: FontWeight.w800),
               ),
-              child: Obx(
-                () => CircleAvatar(
-                  backgroundColor: Colors.black12,
-                  backgroundImage: NetworkImage(profile.userPhoto.value),
-                  radius: 25,
+              centerTitle: true,
+              backgroundColor: Colors.transparent /*Colors.red*/,
+              elevation: 0,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 2, top: 5),
+                  child: ElevatedButton(
+                    onPressed: () => Get.toNamed(Routes.profilePage),
+                    style: ElevatedButton.styleFrom(
+                      primary: const Color.fromRGBO(44, 83, 72, 1),
+                      shape: const CircleBorder(),
+                    ),
+                    child: Obx(
+                      () => CircleAvatar(
+                        backgroundColor: Colors.black12,
+                        backgroundImage: NetworkImage(profile.userPhoto.value),
+                        radius: 25,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       body: SafeArea(
         child: SizedBox(
@@ -66,9 +74,6 @@ class RoutesPageState extends State<RoutesPage> {
           width: Get.width,
           child: Column(
             children: [
-              const SizedBox(
-                height: 60,
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -76,8 +81,9 @@ class RoutesPageState extends State<RoutesPage> {
                     "Actual routes",
                     style: TextStyle(
                         fontFamily: 'Inter',
-                        color:
-                            flag ? Colors.white : const Color.fromRGBO(44, 83, 72, 1),
+                        color: flag
+                            ? Colors.white
+                            : const Color.fromRGBO(44, 83, 72, 1),
                         fontSize: 25,
                         fontWeight: FontWeight.w800),
                   ),

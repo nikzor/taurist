@@ -1,38 +1,38 @@
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:taurist/controllers/authorization_controller.dart';
 import 'package:taurist/routes.dart';
 import 'package:taurist/screens/forgotPassword/main_screen.dart';
 import 'package:taurist/screens/newRouteScreen/main_screen.dart';
 import 'package:taurist/screens/profileScreen/main_screen.dart';
+import 'package:taurist/screens/profileSettings/main_screen.dart';
 import 'package:taurist/screens/routesDescScreen/main_screen.dart';
 import 'package:taurist/screens/routesScreen/main_screen.dart';
 import 'package:taurist/screens/signIn/main_screen.dart';
-import 'package:taurist/screens/start/main_screen.dart';
 import 'package:taurist/screens/signUp/main_screen.dart';
-import 'package:taurist/screens/profileSettings/main_screen.dart';
-import 'package:flutter/services.dart';
+import 'package:taurist/screens/start/main_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-
-  //   ),
-  // );
-  await Firebase.initializeApp(
-      // options: FirebaseOptions(
-      //   apiKey: "AIzaSyDkAx_7BpwBcljaKaN8SLBTwwMZVJqDMIs",
-      //   appId: "1:1091313771929:web:ca39a90ef44b0f02a19f08",
-      //   messagingSenderId: "1091313771929",
-      //   projectId: "tauristapp-74b3f",
-      //   storageBucket: "tauristapp-74b3f.appspot.com",
-  ).then((value) => Get.put(AuthorizationController()));
 
   if (!kIsWeb) {
+    await Firebase.initializeApp()
+        .then((value) => Get.put(AuthorizationController()));
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  } else {
+    await Firebase.initializeApp(
+      options: const FirebaseOptions(
+        apiKey: "AIzaSyDkAx_7BpwBcljaKaN8SLBTwwMZVJqDMIs",
+        appId: "1:1091313771929:web:ca39a90ef44b0f02a19f08",
+        messagingSenderId: "1091313771929",
+        projectId: "tauristapp-74b3f",
+        storageBucket: "tauristapp-74b3f.appspot.com",
+      ),
+    ).then((value) => Get.put(AuthorizationController()));
   }
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -54,7 +54,8 @@ void main() async {
             page: () => const ForgotPasswordPage()),
         GetPage(name: Routes.routesPage, page: () => const RoutesPage()),
         GetPage(name: Routes.routeDescPage, page: () => RoutesDescPage()),
-        GetPage(name: Routes.newRouteScreen, page: () => const NewRouteScreen()),
+        GetPage(
+            name: Routes.newRouteScreen, page: () => const NewRouteScreen()),
         GetPage(name: Routes.profilePage, page: () => const ProfilePage()),
         GetPage(
             name: Routes.profileSettingsPage,
