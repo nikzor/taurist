@@ -104,9 +104,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       shrinkWrap: true,
                       itemCount: snapshot.data!.docs.length,
                       itemBuilder: (context, index) {
-                        RouteModel doc =
-                        RouteModel.fromJson(snapshot.data!.docs[index].data());
-                        if (doc.ownerId != FirebaseAuth.instance.currentUser!.uid) {
+                        RouteModel doc = RouteModel.fromJson(
+                            snapshot.data!.docs[index].data());
+                        if (doc.ownerId !=
+                            FirebaseAuth.instance.currentUser!.uid) {
                           return Container();
                         }
                         return GestureDetector(

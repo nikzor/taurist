@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:taurist/screens/routesScreen/main_screen.dart';
-import 'package:taurist/screens/start/main_screen.dart';
-import 'package:taurist/screens/signIn/main_screen.dart';
 import 'package:taurist/helpers/error_snackbar.dart';
+import 'package:taurist/screens/routesScreen/main_screen.dart';
+import 'package:taurist/screens/signIn/main_screen.dart';
+import 'package:taurist/screens/start/main_screen.dart';
 
 class AuthorizationController extends GetxController {
   static AuthorizationController instance = Get.find();

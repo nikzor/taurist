@@ -1,9 +1,10 @@
 import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taurist/controllers/routes_controller.dart';
-import 'package:flutter/material.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:taurist/data/route_model.dart';
 import 'package:taurist/helpers/gpx_file_handler.dart';
 import 'package:uuid/uuid.dart';

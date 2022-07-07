@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:taurist/screens/signIn/main_screen.dart';
 import 'package:get/get.dart';
+import 'package:taurist/screens/signIn/main_screen.dart';
 
 class StartPage extends StatefulWidget {
   const StartPage({Key? key}) : super(key: key);

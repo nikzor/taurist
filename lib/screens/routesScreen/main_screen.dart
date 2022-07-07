@@ -38,7 +38,9 @@ class RoutesPageState extends State<RoutesPage> {
                 'Taurist',
                 style: TextStyle(
                     fontFamily: 'Inter',
-                    color: flag ? Colors.white : const Color.fromRGBO(44, 83, 72, 1),
+                    color: flag
+                        ? Colors.white
+                        : const Color.fromRGBO(44, 83, 72, 1),
                     fontSize: 45,
                     fontWeight: FontWeight.w800),
               ),

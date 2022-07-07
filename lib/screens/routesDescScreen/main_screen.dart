@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taurist/controllers/routes_controller.dart';
 import 'package:taurist/data/route_model.dart';
-
-import '../../sharedWidgets/model_desc_card.dart';
+import 'package:taurist/sharedWidgets/model_desc_card.dart';
 
 class RoutesDescPage extends StatelessWidget {
   final routesController = Get.put(RoutesController());
@@ -23,14 +22,14 @@ class RoutesDescPage extends StatelessWidget {
           future: routesController.get(Get.arguments[0]),
           builder: (context, AsyncSnapshot<RouteModel?> snapshot) {
             Widget mapWidget = !snapshot.hasData
-                ? SizedBox(
-                  child: const Center(
+                ? const SizedBox(
+                    child: Center(
                       child: CircularProgressIndicator(
                         semanticsLabel: 'Loading...',
                         color: Color.fromRGBO(44, 83, 72, 1),
                       ),
                     ),
-                )
+                  )
                 : LiveLocationPage(snapshot.data!);
             var titleText =
                 !snapshot.hasData ? "Loading..." : snapshot.data!.title;

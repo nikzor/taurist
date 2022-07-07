@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ErrorSnackbar{
+class ErrorSnackbar {
   static void errorSnackbar(String message) {
     Get.snackbar(
       "Title",

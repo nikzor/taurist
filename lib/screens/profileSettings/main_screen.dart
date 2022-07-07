@@ -258,12 +258,12 @@ class _ProfileSettingsState extends State<ProfileSettings> {
         controller: controller,
         obscureText: isPassword ? showPassword : false,
         decoration: InputDecoration(
-            enabledBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFF49454F)),
-            ),
-            focusedBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFF49454F)),
-            ),
+          enabledBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFF49454F)),
+          ),
+          focusedBorder: const UnderlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFF49454F)),
+          ),
           suffixIcon: isPassword
               ? IconButton(
                   onPressed: () {
@@ -284,7 +284,9 @@ class _ProfileSettingsState extends State<ProfileSettings> {
           labelStyle: const TextStyle(fontSize: 18, color: Color(0xFF49454F)),
           floatingLabelBehavior: FloatingLabelBehavior.always,
           hintText: isPassword ? '******' : placeHolder,
-          hintStyle: const TextStyle(fontSize: 16,),
+          hintStyle: const TextStyle(
+            fontSize: 16,
+          ),
         ),
       ),
     );

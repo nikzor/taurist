@@ -30,8 +30,7 @@ double overallDistance(String xmlFile) {
 
   double result = 0;
   for (int i = 1; i < waypoints.length; i++) {
-    result += distance.as(LengthUnit.Meter, waypoints[i - 1],
-        waypoints[i]);
+    result += distance.as(LengthUnit.Meter, waypoints[i - 1], waypoints[i]);
   }
 
   return result / 1000;

@@ -1,9 +1,10 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
-import 'package:taurist/helpers/error_snackbar.dart';
-import 'dart:io';
 import 'package:image_picker/image_picker.dart';
+import 'package:taurist/helpers/error_snackbar.dart';
 import 'package:taurist/routes.dart';
 
 class ProfileController extends GetxController {

@@ -5,7 +5,6 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:taurist/data/route_model.dart';
 import 'package:taurist/helpers/error_snackbar.dart';
-import 'package:taurist/helpers/typedef.dart';
 import 'package:uuid/uuid.dart';
 
 class RoutesController extends GetxController {
@@ -57,8 +56,7 @@ class RoutesController extends GetxController {
     }
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> list(
-      [Predicate<RouteModel>? predicate]) {
+  Stream<QuerySnapshot<Map<String, dynamic>>> list() {
     return routesDB.collection("routes").snapshots();
   }
 

@@ -113,11 +113,11 @@ class LiveLocationPageState extends State<LiveLocationPage> {
       builder: (context, AsyncSnapshot<String> snapshot) {
         return !snapshot.hasData
             ? const Center(
-              child: CircularProgressIndicator(
+                child: CircularProgressIndicator(
                   semanticsLabel: 'Loading...',
                   color: Color.fromRGBO(44, 83, 72, 1),
                 ),
-            )
+              )
             : FlutterMap(
                 mapController: _mapController,
                 options: MapOptions(
