@@ -46,7 +46,7 @@ List<Marker> extractMarkers(String xmlFile, BuildContext context) {
         height: 60.0,
         point: LatLng(wpt.lat ?? 0, wpt.lon ?? 0),
         builder: (ctx) => GestureDetector(
-          child: const Icon(Icons.restaurant),
+          child: const Icon(Icons.info_outline),
           onTap: () => _displayPointInfo(context, wpt),
         ),
       ),
