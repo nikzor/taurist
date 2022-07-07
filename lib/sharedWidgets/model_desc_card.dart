@@ -133,6 +133,8 @@ class LiveLocationPageState extends State<LiveLocationPage> {
                     // worse performance, but better maps
                     // retinaMode: true,
                     // maxZoom: 22,
+                    tilesContainerBuilder:
+                        Get.isDarkMode ? darkModeTilesContainerBuilder : null,
                   ),
                   PolylineLayerOptions(
                     polylines: [
@@ -151,64 +153,14 @@ class LiveLocationPageState extends State<LiveLocationPage> {
                     rotate: true,
                   ),
                 ],
-                nonRotatedChildren: [
-                  AttributionWidget.defaultWidget(
-                    source: 'OpenStreetMap contributors',
-                    onSourceTapped: null,
-                  ),
-                ],
+                // nonRotatedChildren: [
+                //   AttributionWidget.defaultWidget(
+                //     source: 'OpenStreetMap contributors',
+                //     onSourceTapped: null,
+                //   ),
+                // ],
               );
       },
     );
   }
 }
-
-// Widget getModelDescCardWidget(RouteModel model, BuildContext context) {
-//   final routesController = Get.put(RoutesController());
-//
-//   return FutureBuilder(
-//     future: routesController.getGpxMap(model.xmlFileId),
-//     builder: (context, AsyncSnapshot<String> snapshot) {
-//       return !snapshot.hasData
-//           ? const CircularProgressIndicator(
-//               semanticsLabel: 'Loading...',
-//             )
-//           : FlutterMap(
-//               options: MapOptions(
-//                 center: extractWaypoints(snapshot.data!).first,
-//                 zoom: 17.0,
-//                 minZoom: 1.5,
-//                 maxZoom: 18.0,
-//               ),
-//               layers: [
-//                 TileLayerOptions(
-//                   urlTemplate:
-//                       "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-//                   subdomains: ['a', 'b', 'c'],
-//                   // worse performance, but better maps
-//                   // retinaMode: true,
-//                 ),
-//                 PolylineLayerOptions(
-//                   polylines: [
-//                     Polyline(
-//                       points: extractWaypoints(snapshot.data!),
-//                       strokeWidth: 3.5,
-//                       color: Colors.purpleAccent,
-//                     ),
-//                   ],
-//                 ),
-//                 MarkerLayerOptions(
-//                   markers: extractMarkers(snapshot.data!, context),
-//                   rotate: true,
-//                 ),
-//               ],
-//               nonRotatedChildren: [
-//                 AttributionWidget.defaultWidget(
-//                   source: 'OpenStreetMap contributors',
-//                   onSourceTapped: null,
-//                 ),
-//               ],
-//             );
-//     },
-//   );
-// }
