@@ -1,66 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:taurist/screens/routes.dart';
-import 'package:taurist/screens/utils.dart';
+import 'package:get/get.dart';
+import 'package:taurist/controllers/authorization_controller.dart';
+import 'package:taurist/routes.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
-
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return const RoutesPage();
-          } else {
-            return const SignInWidget();
-          }
-        },
-      ),
-    );
-  }
-}
-
-class SignInWidget extends StatefulWidget {
-  const SignInWidget({Key? key}) : super(key: key);
+class SignInPage extends StatefulWidget {
+  const SignInPage({Key? key}) : super(key: key);
 
   @override
-  State<SignInWidget> createState() => _SignInWidgetState();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class _SignInWidgetState extends State<SignInWidget> {
+class _SignInPageState extends State<SignInPage> {
   bool _isVisible = true;
   bool pass = true;
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
-
-  Future signIn() async {
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: emailController.text.trim(),
-        password: passwordController.text.trim(),
-      );
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        Utils.showSnackBar('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        Utils.showSnackBar('Wrong password provided.');
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,9 +22,6 @@ class _SignInWidgetState extends State<SignInWidget> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: const BackButton(
-          color: Colors.black,
-        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -114,20 +65,18 @@ class _SignInWidgetState extends State<SignInWidget> {
                       height: 34,
                       width: 80,
                       child: GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(
-                              context,
-                              '/signin',
-                            );
-                          },
-                          child: const Text(
-                            'Sign up',
-                            style: TextStyle(
-                                fontSize: 15,
-                                fontFamily: 'Inter',
-                                color: Color.fromRGBO(44, 83, 72, 1),
-                                fontWeight: FontWeight.w900),
-                          )),
+                        onTap: () {
+                          Get.toNamed(Routes.signUpPage);
+                        },
+                        child: const Text(
+                          'Sign up',
+                          style: TextStyle(
+                              fontSize: 15,
+                              fontFamily: 'Inter',
+                              color: Color.fromRGBO(44, 83, 72, 1),
+                              fontWeight: FontWeight.w900),
+                        ),
+                      ),
                     )
                   ],
                 ),
@@ -195,10 +144,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                   children: [
                     TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          '/forgot',
-                        );
+                        Get.toNamed(Routes.forgotPasswordPage);
                       },
                       style: TextButton.styleFrom(
                         primary: const Color.fromRGBO(189, 189, 189, 1),
@@ -232,7 +178,12 @@ class _SignInWidgetState extends State<SignInWidget> {
                       shadowColor:
                           MaterialStateProperty.all(Colors.transparent),
                     ),
-                    onPressed: signIn,
+                    onPressed: () {
+                      AuthorizationController.instance.signIn(
+                        emailController.text.trim(),
+                        passwordController.text.trim(),
+                      );
+                    },
                     child: const Padding(
                       padding: EdgeInsets.only(
                         top: 10,
