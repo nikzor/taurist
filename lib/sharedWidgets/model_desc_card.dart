@@ -4,11 +4,10 @@ import 'package:flutter_map/flutter_map.dart'; // Suitable for most situations
 import 'package:flutter_map/plugin_api.dart'; // Only import if required functionality is not exposed by 'flutter_map.dart'
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:taurist/data/route_model.dart'; // Recommended for most use-cases
 import 'package:location/location.dart';
-import 'package:taurist/helpers/gpx_file_handler.dart';
-
 import 'package:taurist/controllers/routes_controller.dart';
+import 'package:taurist/data/route_model.dart'; // Recommended for most use-cases
+import 'package:taurist/helpers/gpx_file_handler.dart';
 
 class LiveLocationPage extends StatefulWidget {
   final RouteModel model;
@@ -16,14 +15,13 @@ class LiveLocationPage extends StatefulWidget {
   const LiveLocationPage(this.model, {Key? key}) : super(key: key);
 
   @override
-  _LiveLocationPageState createState() => _LiveLocationPageState();
+  LiveLocationPageState createState() => LiveLocationPageState();
 }
 
-class _LiveLocationPageState extends State<LiveLocationPage> {
+class LiveLocationPageState extends State<LiveLocationPage> {
   LocationData? _currentLocation;
   late final MapController _mapController;
 
-  bool _liveUpdate = false;
   bool _permission = false;
 
   var interActiveFlags = InteractiveFlag.all;
@@ -63,14 +61,10 @@ class _LiveLocationPageState extends State<LiveLocationPage> {
                 setState(
                   () {
                     _currentLocation = result;
-
-                    // If Live Update is enabled, move map center
-                    if (_liveUpdate) {
-                      _mapController.move(
-                          LatLng(_currentLocation!.latitude!,
-                              _currentLocation!.longitude!),
-                          _mapController.zoom);
-                    }
+                    _mapController.move(
+                        LatLng(_currentLocation!.latitude!,
+                            _currentLocation!.longitude!),
+                        _mapController.zoom);
                   },
                 );
               }

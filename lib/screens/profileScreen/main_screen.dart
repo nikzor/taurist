@@ -91,34 +91,36 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             SliverToBoxAdapter(
               child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-                  stream: routesController.list(),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    } else {
-                      return ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.docs.length,
-                        itemBuilder: (context, index) {
-                          DocumentSnapshot<Map<String, dynamic>> doc =
-                              snapshot.data!.docs[index];
-                          return GestureDetector(
-                            onTap: () => Get.toNamed(Routes.routeDescPage,
-                                arguments: [doc.id]),
-                            child: getModelCardWidget(
-                              RouteModel.fromJson(
-                                doc.data()!,
-                              ),
+                stream: routesController.list(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  } else {
+                    return ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        DocumentSnapshot<Map<String, dynamic>> doc =
+                            snapshot.data!.docs[index];
+                        return GestureDetector(
+                          onTap: () => Get.toNamed(Routes.routeDescPage,
+                              arguments: [doc.id]),
+                          child: getModelCardWidget(
+                            RouteModel.fromJson(
+                              doc.data()!,
                             ),
-                          );
-                        },
-                      );
-                    }
-                  },
-                ),
+                            removable: true,
+                            controller: routesController,
+                          ),
+                        );
+                      },
+                    );
+                  }
+                },
+              ),
             ),
           ],
         ),

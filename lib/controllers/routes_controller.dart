@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import 'package:uuid/uuid.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:taurist/data/route_model.dart';
 import 'package:taurist/helpers/error_snackbar.dart';
 import 'package:taurist/helpers/typedef.dart';
+import 'package:uuid/uuid.dart';
 
 class RoutesController extends GetxController {
   static RoutesController instance = Get.find();
@@ -39,9 +39,13 @@ class RoutesController extends GetxController {
     return xmlFileId;
   }
 
-  Future<String> getGpxMap (String mapId) async {
+  Future<String> getGpxMap(String mapId) async {
     var data = await xmlStorage.ref().child("gpx_files/$mapId").getData();
     return String.fromCharCodes(data!);
+  }
+
+  void removeXml(String mapId) async {
+    await xmlStorage.ref().child("gpx_files/$mapId").delete();
   }
 
   // Add or update route
@@ -53,7 +57,8 @@ class RoutesController extends GetxController {
     }
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> list([Predicate<RouteModel>? predicate]) {
+  Stream<QuerySnapshot<Map<String, dynamic>>> list(
+      [Predicate<RouteModel>? predicate]) {
     return routesDB.collection("routes").snapshots();
   }
 
